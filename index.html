@@ -1087,6 +1087,11 @@ html,body{
         <button class="lang-toggle" id="langToggleBtn" onclick="toggleDashboardLanguage()">
           English
         </button>
+
+        <button class="logout" id="logoutBtn" onclick="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span id="logoutText">تسجيل الخروج</span>
+        </button>
       </div>
     </div>
 
@@ -1456,6 +1461,13 @@ function applyDashboardLanguage(){
   if(window.OPEN_TICKER_COURSES && typeof renderOpenCoursesTicker === "function"){
     renderOpenCoursesTicker(window.OPEN_TICKER_COURSES);
   }
+}
+
+function logout(){
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  localStorage.removeItem("loginDate");
+  window.location.href = "https://www.prudle-education.com/login";
 }
 
 function toggleDashboardLanguage(){
