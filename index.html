@@ -78,37 +78,7 @@ img, video, canvas{
 }
 </style>
 
-<script>
-(function(){
 
-  function goLogin(){
-    localStorage.clear();
-    sessionStorage.clear();
-    location.replace("https://www.prudle-education.com/log-in-out");
-  }
-
-  function checkLogin(){
-    const user = localStorage.getItem("username");
-    const role = localStorage.getItem("role");
-    const last = localStorage.getItem("loginDate");
-    const today = new Date().toDateString();
-
-    if(!user || role !== "admin" || last !== today){
-      goLogin();
-      return false;
-    }
-
-    return true;
-  }
-
-  if(!checkLogin()) return;
-
-  window.addEventListener("pageshow", function(){
-    checkLogin();
-  });
-
-})();
-</script>
 
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -1116,11 +1086,6 @@ html,body{
       <div class="topbar-actions">
         <button class="lang-toggle" id="langToggleBtn" onclick="toggleDashboardLanguage()">
           English
-        </button>
-
-        <button class="logout" id="logoutBtn" onclick="logout()">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span id="logoutText">تسجيل الخروج</span>
         </button>
       </div>
     </div>
