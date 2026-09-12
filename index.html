@@ -492,7 +492,7 @@ rgba(22,68,120,.2);
 
 .logout:hover{
 
-  transform:none;
+  transform:translateY(-2px);
 
 }
 
@@ -1956,75 +1956,125 @@ button.active{
 
   }
 
-  .mobile-menu button{
+  .mobile-menu button{
 
    
 -webkit-tap-highlight-color:transparent;
 
-    touch-action:manipulation;
+    touch-action:manipulation;
 
-  }
+  }
 
 }
 
-
 /* =========================================================
-   ONLY FIX: منع الاهتزاز عند فتح/عرض إسناد المهام على الجوال
-   لا يغير التصميم أو المقاسات أو ترتيب الصفحة
+   FINAL MOBILE STABILITY FIX
+   يمنع الاهتزاز الأفقي وتغيّر حجم العناصر في Chrome/Safari
 ========================================================= */
+
 @media (max-width:980px){
 
-  /* زر المهام نفسه لا يتحرك عند الضغط أو التفعيل */
-  #tasksBtnMobile,
-  #tasksBtnMobile.active,
-  #tasksBtnMobile:active,
-  #tasksBtnMobile:focus,
-  #tasksBtnMobile:hover{
-    transform:none !important;
-    transition:none !important;
-    -webkit-tap-highlight-color:transparent !important;
-    touch-action:manipulation;
+  html{
+    overflow-x:clip !important;
   }
 
-  /* لا تسمح للزر النشط أن يقفز للأعلى */
-  .mobile-menu button.active{
-    transform:none !important;
+  body{
+    width:auto !important;
+    min-width:0 !important;
+    padding:0 !important;
+    overflow-x:clip !important;
+    position:relative;
   }
 
-  /* وميض المهمة يكون لوني فقط بدون تكبير/تصغير */
+  .app,
+  .main{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    overflow-x:clip !important;
+  }
+
+  /* العناصر ذات الهوامش يجب ألا تكون بعرض 100% حتى لا تتجاوز الشاشة */
+  .mobile-menu,
+  .topbar,
+  .hero,
+  .content-wrap{
+    width:auto !important;
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+
+  .cards,
+  .card,
+  #content{
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+
+  /* إلغاء أي تكبير أو تحريك لزر المهام عند وصول تنبيه */
+  .task-alert-btn,
+  .task-alert-btn.task-flash-high,
+  .task-alert-btn.task-flash-medium,
+  .task-alert-btn.task-flash-low,
+  .mobile-menu button.active,
+  .live-online{
+    transform:none !important;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+
   .task-alert-btn.task-flash-high,
   .task-alert-btn.task-flash-medium,
   .task-alert-btn.task-flash-low{
+    animation:none !important;
+  }
+
+  /* تنبيه الاجتماع يومض لونيًا فقط من دون تغيير الحجم */
+  .live-online{
+    animation:liveBlinkMobile 1.2s ease-in-out infinite !important;
+  }
+
+  @keyframes liveBlinkMobile{
+    0%,100%{opacity:1;filter:brightness(1)}
+    50%{opacity:.72;filter:brightness(1.18)}
+  }
+
+  /* عزل النصوص المتحركة حتى لا تعيد رسم الصفحة كاملة */
+  .ticker,
+  .task-ticker-note{
+    contain:layout paint !important;
+    overflow:hidden !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+
+  .ticker-track,
+  .task-ticker-note span{
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    transform:translate3d(0,0,0);
+  }
+}
+
+@media (max-width:600px){
+
+  /* على الشاشات الصغيرة نثبت الشريطين تمامًا لضمان عدم الاهتزاز */
+  .ticker-track,
+  .task-ticker-note span{
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    animation:none !important;
     transform:none !important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
   }
 
-  @keyframes taskBlinkHigh{
-    0%,100%{filter:brightness(1);opacity:1}
-    50%{filter:brightness(1.28);opacity:.80}
-  }
-
-  @keyframes taskBlinkMedium{
-    0%,100%{filter:brightness(1);opacity:1}
-    50%{filter:brightness(1.22);opacity:.82}
-  }
-
-  @keyframes taskBlinkLow{
-    0%,100%{filter:brightness(1);opacity:1}
-    50%{filter:brightness(1.18);opacity:.84}
-  }
-
-  /* منع اهتزاز كروت قسم المهام عند اللمس */
-  #content .card:hover,
-  #content .card:active,
-  #content .card button:hover,
-  #content .card button:active{
-    transform:none !important;
-  }
-
-  /* تثبيت منطقة المحتوى عند تبديل القسم */
-  .content-wrap,
-  #content{
-    overflow-anchor:none;
+  .hero{
+    margin-left:8px !important;
+    margin-right:8px !important;
   }
 }
 
