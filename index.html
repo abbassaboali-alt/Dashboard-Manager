@@ -929,6 +929,126 @@ html,body{
   }
   .task-alert-btn{position:relative}
 }
+
+/* =========================================================
+   MOBILE STABILITY PATCH — منع اهتزاز الشاشة على الجوال
+   Chrome / Safari / iPhone / Android
+========================================================= */
+@media (max-width:980px){
+
+  html,body{
+    overflow-x:hidden !important;
+    width:100% !important;
+    max-width:100% !important;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+
+  .app,
+  .main,
+  .content-wrap,
+  #content,
+  .cards,
+  .card,
+  .mobile-menu,
+  .hero,
+  .topbar{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+  }
+
+  /* لا نستخدم حركة تغيّر حجم العنصر على الجوال */
+  .task-alert-btn.task-flash-high,
+  .task-alert-btn.task-flash-medium,
+  .task-alert-btn.task-flash-low{
+    transform:none !important;
+    will-change:auto !important;
+  }
+
+  /* وميض لوني فقط بدون scale حتى لا تتحرك الصفحة */
+  @keyframes taskBlinkHigh{
+    0%,100%{filter:brightness(1);opacity:1}
+    50%{filter:brightness(1.28);opacity:.78}
+  }
+
+  @keyframes taskBlinkMedium{
+    0%,100%{filter:brightness(1);opacity:1}
+    50%{filter:brightness(1.22);opacity:.80}
+  }
+
+  @keyframes taskBlinkLow{
+    0%,100%{filter:brightness(1);opacity:1}
+    50%{filter:brightness(1.18);opacity:.82}
+  }
+
+  /* منع القفزة عند الزر النشط */
+  .mobile-menu button.active{
+    transform:none !important;
+  }
+
+  /* تعطيل تأثيرات hover التي قد يفسرها Safari كلمس */
+  .side-btn:hover,
+  .card:hover,
+  .logout:hover,
+  .lang-toggle:hover,
+  .card button:hover{
+    transform:none !important;
+  }
+
+  /* منع أي حركة من تغيير عرض الصفحة */
+  .task-ticker-note{
+    width:100%;
+    max-width:100%;
+    overflow:hidden !important;
+    contain:layout paint;
+  }
+
+  .task-ticker-note span{
+    min-width:100%;
+    max-width:none;
+    will-change:transform;
+  }
+
+  .ticker{
+    width:100%;
+    max-width:100%;
+    overflow:hidden !important;
+    contain:layout paint;
+  }
+
+  .ticker-track{
+    will-change:transform;
+  }
+
+  /* تثبيت الأزرار والبادج */
+  .task-alert-btn{
+    transform:translateZ(0);
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+
+  .task-count-badge{
+    transform:none !important;
+  }
+}
+
+/* على الشاشات الصغيرة جدًا نقلل الحركات أكثر */
+@media (max-width:600px){
+  .task-ticker-note span{
+    animation-duration:28s;
+  }
+
+  .ticker-track{
+    animation-duration:90s;
+  }
+
+  .mobile-menu button{
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+}
+
 </style>
 </head>
 
@@ -1485,7 +1605,7 @@ let TASKS_LISTENER_READY = false;
 let TASK_FLASH_TIMER = null;
 
 function safeTaskText(v){
-  return String(v ?? "").trim();
+  return String(v == null ? "" : v).trim();
 }
 
 function taskPriorityValue(priority){
@@ -1524,8 +1644,9 @@ function flashTaskAssignment(priority){
   [sideBtn,mobileBtn].forEach(btn=>{
     if(!btn) return;
     btn.classList.remove("task-flash-high","task-flash-medium","task-flash-low");
-    void btn.offsetWidth;
-    btn.classList.add("task-flash-"+p);
+    requestAnimationFrame(function(){
+      btn.classList.add("task-flash-"+p);
+    });
   });
 
   if(TASK_FLASH_TIMER) clearTimeout(TASK_FLASH_TIMER);
@@ -1533,7 +1654,7 @@ function flashTaskAssignment(priority){
   /* الوميض لحظي لمدة تقريباً 5.5 ثانية ثم يعود الزر لطبيعته */
   TASK_FLASH_TIMER = setTimeout(()=>{
     [sideBtn,mobileBtn].forEach(btn=>{
-      btn?.classList.remove("task-flash-high","task-flash-medium","task-flash-low");
+      if(btn) btn.classList.remove("task-flash-high","task-flash-medium","task-flash-low");
     });
   },5600);
 }
@@ -1649,7 +1770,7 @@ db.collection("EmployeeTasks")
       const justAssigned = snapshot.docChanges()
         .filter(change =>
           change.type === "added" &&
-          (change.doc.data()?.status || "assigned") === "assigned"
+          ((change.doc.data() && change.doc.data().status) || "assigned") === "assigned"
         )
         .map(change=>({
           id:change.doc.id,
