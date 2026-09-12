@@ -258,7 +258,7 @@ html,body{
 }
 
 .logout:hover{
-  transform:translateY(-2px);
+  transform:none;
 }
 
 .lang-toggle{
@@ -1047,6 +1047,71 @@ html,body{
     -webkit-tap-highlight-color:transparent;
     touch-action:manipulation;
   }
+}
+
+
+/* =========================================================
+   TASK SECTION MOBILE STABILITY
+   منع الاهتزاز عند الضغط على "إسناد المهام"
+========================================================= */
+@media (max-width:980px){
+
+  /* تثبيت زر المهام تماماً أثناء الضغط والتفعيل */
+  #tasksBtnMobile,
+  #tasksBtnMobile.active,
+  #tasksBtnMobile:active,
+  #tasksBtnMobile:focus,
+  #tasksBtnMobile:hover{
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    outline-offset:0 !important;
+    -webkit-tap-highlight-color:transparent !important;
+    touch-action:manipulation;
+  }
+
+  /* منع أي تغير في حجم القائمة عند تغيير active */
+  .mobile-menu button,
+  .mobile-menu button.active,
+  .mobile-menu button:active,
+  .mobile-menu button:focus{
+    transform:none !important;
+    transition:none !important;
+    box-sizing:border-box !important;
+  }
+
+  /* تثبيت منطقة المحتوى أثناء تبديل الأقسام */
+  .content-wrap,
+  #content{
+    position:relative;
+    overflow-anchor:none;
+    contain:layout paint;
+  }
+
+  /* كروت قسم المهام بدون حركة على اللمس */
+  #content .card,
+  #content .card:hover,
+  #content .card:active{
+    transform:none !important;
+    transition:none !important;
+  }
+
+  #content .card button,
+  #content .card button:hover,
+  #content .card button:active{
+    transform:none !important;
+    transition:none !important;
+    -webkit-tap-highlight-color:transparent !important;
+    touch-action:manipulation;
+  }
+}
+
+/* أثناء تبديل القسم نوقف كل الحركات للحظة لمنع إعادة الرسم المهتز */
+body.prudle-switching-section *,
+body.prudle-switching-section *::before,
+body.prudle-switching-section *::after{
+  animation-play-state:paused !important;
+  transition:none !important;
 }
 
 </style>
@@ -2209,10 +2274,31 @@ function openPage(url){
 ========================================================= */
 function load(type){
   window.CURRENT_SECTION = type;
+
+  const isMobile = window.matchMedia && window.matchMedia("(max-width:980px)").matches;
+  const currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+  if(isMobile){
+    document.body.classList.add("prudle-switching-section");
+
+    /* إيقاف وميض زر المهام عند فتح القسم حتى لا يسبب أي حركة */
+    const taskMobileBtn = document.getElementById("tasksBtnMobile");
+    if(taskMobileBtn){
+      taskMobileBtn.classList.remove(
+        "task-flash-high",
+        "task-flash-medium",
+        "task-flash-low"
+      );
+    }
+  }
+
   activateButtons(type);
 
   const section = DATA[type];
-  if(!section) return;
+  if(!section){
+    document.body.classList.remove("prudle-switching-section");
+    return;
+  }
 
   document.getElementById("pageTitle").textContent =
     UI_TEXT[DASH_LANG].sectionTitles[type] || section.title;
@@ -2223,10 +2309,45 @@ function load(type){
     const heading = DASH_LANG === "en"
       ? (EN_HEADING_TEXT[sec.heading] || sec.heading)
       : sec.heading;
+
     html += `<div class="section-title">${heading}</div>`;
     html += `<div class="cards">`;
-sec.items.forEach(item=>{
-  html += card(item);
+
+    sec.items.forEach(item=>{
+      html += card(item);
+    });
+
+    if(type === "online" && LIVE_MEET_LINK){
+      html += card([
+        "الانضمام للاجتماع المباشر",
+        "fa-circle-play",
+        LIVE_MEET_LINK,
+        "red",
+        "اضغط هنا للدخول إلى Google Meet المباشر"
+      ]);
+    }
+
+    html += `</div>`;
+  });
+
+  const content = document.getElementById("content");
+  content.innerHTML = html;
+
+  if(isMobile){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        document.body.classList.remove("prudle-switching-section");
+
+        /* نحافظ على موضع الشاشة قدر الإمكان بدون smooth scroll */
+        const maxScroll = Math.max(
+          0,
+          document.documentElement.scrollHeight - window.innerHeight
+        );
+
+        window.scrollTo(0, Math.min(currentScroll, maxScroll));
+      });
+    });
+  }
 });
 
 if(type === "online" && LIVE_MEET_LINK){
