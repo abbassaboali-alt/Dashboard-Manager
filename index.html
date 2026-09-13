@@ -201,6 +201,40 @@ html,body{
   box-shadow:0 12px 24px rgba(0,0,0,.18);
 }
 
+
+/* ===== SIDEBAR BOTTOM UTILITIES ===== */
+.sidebar-bottom{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.18);
+}
+
+.sidebar-bottom .side-btn{
+  margin-bottom:10px;
+}
+
+#supervisoryBtnSide{
+  background:linear-gradient(135deg,#0f766e,#14b8a6);
+}
+
+#newStudentsBtnSide{
+  background:linear-gradient(135deg,#2563eb,#3b82f6);
+}
+#backupBtnSide{
+  background:linear-gradient(135deg,#7c3aed,#9333ea);
+}
+
+#credentialsBtnSide{
+  background:linear-gradient(135deg,#334155,#64748b);
+}
+
+@media(max-width:980px){
+  #supervisoryBtnMobile{background:linear-gradient(135deg,#0f766e,#14b8a6);}
+  #newStudentsBtnMobile{background:linear-gradient(135deg,#2563eb,#3b82f6);}
+  #backupBtnMobile{background:linear-gradient(135deg,#7c3aed,#9333ea);}
+  #credentialsBtnMobile{background:linear-gradient(135deg,#334155,#64748b);}
+}
+
 /* ===== MAIN ===== */
 .main{
   flex:1;
@@ -1150,6 +1184,28 @@ html,body{
       <i class="fa-solid fa-gear"></i>
       <span id="adminSideText">قسم الإدارة</span>
     </button>
+
+    <div class="sidebar-bottom">
+      <button id="newStudentsBtnSide" class="side-btn" onclick="load('newstudents')">
+        <i class="fa-solid fa-user-plus"></i>
+        <span id="newStudentsSideText">المستجدين</span>
+      </button>
+
+      <button id="supervisoryBtnSide" class="side-btn" onclick="openPage('https://www.prudle-education.com/gm-dashboard')">
+        <i class="fa-solid fa-user-tie"></i>
+        <span id="supervisorySideText">الجهة الإشرافية</span>
+      </button>
+
+      <button id="backupBtnSide" class="side-btn" onclick="backupFirestoreFromDashboard()">
+        <i class="fa-solid fa-database"></i>
+        <span id="backupSideText">النسخ الاحتياطي</span>
+      </button>
+
+      <button id="credentialsBtnSide" class="side-btn" onclick="openPage('https://www.prudle-education.com/users')">
+        <i class="fa-solid fa-key"></i>
+        <span id="credentialsSideText">اسم المستخدم وكلمة المرور</span>
+      </button>
+    </div>
   </aside>
 
   <!-- ===== MAIN ===== -->
@@ -1193,6 +1249,22 @@ html,body{
 
   <button id="adminBtnMobile" onclick="load('admin')">
     الإدارة
+  </button>
+
+  <button id="newStudentsBtnMobile" onclick="load('newstudents')">
+    <span id="newStudentsMobileText">المستجدين</span>
+  </button>
+
+  <button id="supervisoryBtnMobile" onclick="openPage('https://www.prudle-education.com/gm-dashboard')">
+    <span id="supervisoryMobileText">الجهة الإشرافية</span>
+  </button>
+
+  <button id="backupBtnMobile" onclick="backupFirestoreFromDashboard()">
+    <span id="backupMobileText">النسخ الاحتياطي</span>
+  </button>
+
+  <button id="credentialsBtnMobile" onclick="openPage('https://www.prudle-education.com/users')">
+    <span id="credentialsMobileText">اسم المستخدم وكلمة المرور</span>
   </button>
 
 </div>
@@ -1374,6 +1446,10 @@ const UI_TEXT = {
     booking:"قسم الحجوزات",
     admin:"قسم الإدارة",
     tasks:"إسناد المهام",
+    newstudents:"المستجدين",
+    supervisory:"الجهة الإشرافية",
+    backup:"النسخ الاحتياطي",
+    credentials:"اسم المستخدم وكلمة المرور",
 
     reportsMobile:"التقارير",
     activitiesMobile:"النشاطات",
@@ -1385,6 +1461,10 @@ const UI_TEXT = {
     bookingMobile:"الحجوزات",
     adminMobile:"الإدارة",
     tasksMobile:"المهام",
+    newstudentsMobile:"المستجدين",
+    supervisoryMobile:"الجهة الإشرافية",
+    backupMobile:"النسخ الاحتياطي",
+    credentialsMobile:"اسم المستخدم وكلمة المرور",
 
     tickerPrefix:"🔥 الدورات المفتوحة الآن — ",
     tickerLoading:"⏳ جاري تحميل الدورات المفتوحة...",
@@ -1402,7 +1482,8 @@ const UI_TEXT = {
       online:"قسم الأونلاين",
       booking:"قسم الحجوزات",
       admin:"قسم الإدارة",
-      tasks:"إسناد المهام"
+      tasks:"إسناد المهام",
+      newstudents:"المستجدين"
     }
   },
 
@@ -1426,6 +1507,10 @@ const UI_TEXT = {
     booking:"Bookings",
     admin:"Administration",
     tasks:"Task Assignment",
+    newstudents:"New Students",
+    supervisory:"Supervisory Authority",
+    backup:"Backup",
+    credentials:"Username & Password",
 
     reportsMobile:"Reports",
     activitiesMobile:"Activities",
@@ -1437,6 +1522,10 @@ const UI_TEXT = {
     bookingMobile:"Bookings",
     adminMobile:"Admin",
     tasksMobile:"Tasks",
+    newstudentsMobile:"New Students",
+    supervisoryMobile:"Supervision",
+    backupMobile:"Backup",
+    credentialsMobile:"Username & Password",
 
     tickerPrefix:"🔥 Open Courses Now — ",
     tickerLoading:"⏳ Loading open courses...",
@@ -1454,7 +1543,8 @@ const UI_TEXT = {
       online:"Online",
       booking:"Bookings",
       admin:"Administration",
-      tasks:"Task Assignment"
+      tasks:"Task Assignment",
+      newstudents:"New Students"
     }
   }
 };
@@ -1470,7 +1560,6 @@ const EN_ITEM_TEXT = {
   "تقارير المحادثة المدخلة":"Conversation Reports",
   "تقارير تقييم الطلاب لمهارات اللغة":"Language Skills Reports",
   "تقارير أداء المدربين":"Trainer Performance Reports",
-  "متابعة تقدم المدربين":"Trainer Progress",
   "تقارير تعليقات المدرب ":"Trainer Comments",
   "الرواتب":"Salaries",
   "المتأخرات":"Overdue Payments",
@@ -1500,11 +1589,6 @@ const EN_ITEM_TEXT = {
   "الجموم":"Al-Jumum",
   "أونلاين":"Online",
 
-  "ترحيل الطلاب – حضوري رجال":"Move Students – Men",
-  "ترحيل الطلاب – حضوري سيدات":"Move Students – Women",
-  "ترحيل الطلاب – فرع عسفان":"Move Students – Asfan",
-  "ترحيل الطلاب – فرع الجموم":"Move Students – Al-Jumum",
-  "ترحيل الطلاب – أونلاين":"Move Students – Online",
   "الدورات":"Courses",
   "حذف الدورات":"Delete Courses",
   "السجلات":"Records",
@@ -1514,7 +1598,9 @@ const EN_ITEM_TEXT = {
 
   "الانضمام للاجتماع المباشر":"Join Live Meeting",
   "إسناد مهمة جديدة":"Assign New Task",
-  "استعراض المهام":"View Tasks"
+  "استعراض المهام":"View Tasks",
+  "إضافة مستجد":"Add New Student",
+  "تسكين الطلاب في الفصول":"Student Classroom Placement"
 };
 
 const EN_HEADING_TEXT = {
@@ -1526,9 +1612,9 @@ const EN_HEADING_TEXT = {
   "الفصول والتسجيلات":"Classes & Recordings",
   "اختبارات تحديد المستوى":"Placement Tests",
   "الحجوزات":"Bookings",
-  "تفاصيل الترحيل":"Student Transfer",
   "الإدارة":"Administration",
-  "إسناد المهام":"Task Assignment"
+  "إسناد المهام":"Task Assignment",
+  "المستجدين":"New Students"
 };
 
 function setText(id,value){
@@ -1560,6 +1646,10 @@ function applyDashboardLanguage(){
   setText("bookingSideText",t.booking);
   setText("adminSideText",t.admin);
   setText("tasksSideText",t.tasks);
+  setText("newStudentsSideText",t.newstudents);
+  setText("supervisorySideText",t.supervisory);
+  setText("backupSideText",t.backup);
+  setText("credentialsSideText",t.credentials);
 
   setText("reportsMobileText",t.reportsMobile);
   setText("activitiesMobileText",t.activitiesMobile);
@@ -1571,6 +1661,10 @@ function applyDashboardLanguage(){
   setText("bookingMobileText",t.bookingMobile);
   setText("adminMobileText",t.adminMobile);
   setText("tasksMobileText",t.tasksMobile);
+  setText("newStudentsMobileText",t.newstudentsMobile);
+  setText("supervisoryMobileText",t.supervisoryMobile);
+  setText("backupMobileText",t.backupMobile);
+  setText("credentialsMobileText",t.credentialsMobile);
 
   // Re-render current section only after the dashboard is initialized
   if(window.CURRENT_SECTION && typeof load === "function"){
@@ -1956,8 +2050,6 @@ online: {
           ["تقارير المحادثة المدخلة","fa-chart-bar"," https://www.prudle-education.com/coversation-resulrs-mg","orange","التقييم لدورة المحادثة"],
           ["تقارير تقييم الطلاب لمهارات اللغة","fa-chart-bar"," https://www.prudle-education.com/skills-evaluation","orange","تقييم مهارات اللغة"],
           ["تقارير أداء المدربين","fa-chart-bar","https://www.prudle-education.com/activities-results","orange","تقييم أداء المدربين"],
-          ["متابعة تقدم المدربين","fa-chart-line","https://www.prudle-education.com/gm-dashboard","blue","متابعة تقدم المدربين والخطط الدراسية ونسب الإنجاز"],
-
          ["تقارير تعليقات المدرب ","fa-chart-bar","https://www.prudle-education.com/comments-reports","orange","التعليقات والملاحظات"],
 
 
@@ -2029,6 +2121,31 @@ placement: {
     ]
   },
 
+  newstudents: {
+    title: "المستجدين",
+    sections: [
+      {
+        heading: "المستجدين",
+        items: [
+          [
+            "إضافة مستجد",
+            "fa-user-plus",
+            "https://www.prudle-education.com/new-registrations",
+            "green",
+            "إضافة وتسجيل طالب مستجد"
+          ],
+          [
+            "تسكين الطلاب في الفصول",
+            "fa-chart-column",
+            "https://www.prudle-education.com/student-housing",
+            "blue",
+            "عرض ومتابعة تقارير وسجلات المستجدين"
+          ]
+        ]
+      }
+    ]
+  },
+
   booking: {
     title: "قسم الحجوزات",
     sections: [
@@ -2048,16 +2165,6 @@ placement: {
   admin: {
     title: "قسم الإدارة",
     sections: [
-      {
-        heading: "تفاصيل الترحيل",
-        items: [
-          ["ترحيل الطلاب – حضوري رجال","fa-user","https://www.prudle-education.com/move-to-male-section","blue","إدارة ترحيل الطلاب لفرع الرجال"],
-          ["ترحيل الطلاب – حضوري سيدات","fa-user-group","https://www.prudle-education.com/move-to-female-section","purple","إدارة ترحيل الطالبات"],
-          ["ترحيل الطلاب – فرع عسفان","fa-building","https://www.prudle-education.com/move-to-asfan","orange","إدارة ترحيل طلاب فرع عسفان"],
-          ["ترحيل الطلاب – فرع الجموم","fa-location-dot","https://www.prudle-education.com/move-to-al-jumum-section","green","إدارة ترحيل طلاب فرع الجموم"],
-          ["ترحيل الطلاب – أونلاين","fa-laptop","https://www.prudle-education.com/move-to-online-courses","online","إدارة ترحيل الطلاب الأونلاين"]
-        ]
-      },
       {
         heading: "الإدارة",
         items: [
@@ -2090,7 +2197,8 @@ const allSide = [
   "examsBtnSide",
   "certificatesBtnSide",
   "crmBtnSide",
-  "tasksBtnSide"
+  "tasksBtnSide",
+  "newStudentsBtnSide"
 ];
 
 const allMobile = [
@@ -2103,7 +2211,8 @@ const allMobile = [
   "examsBtnMobile",
   "certificatesBtnMobile",
   "crmBtnMobile",
-  "tasksBtnMobile"
+  "tasksBtnMobile",
+  "newStudentsBtnMobile"
 ];
 
   allSide.forEach(id=>{
@@ -2166,6 +2275,10 @@ if(type==="tasks"){
   document.getElementById("tasksBtnSide")?.classList.add("active");
   document.getElementById("tasksBtnMobile")?.classList.add("active");
 }
+if(type==="newstudents"){
+  document.getElementById("newStudentsBtnSide")?.classList.add("active");
+  document.getElementById("newStudentsBtnMobile")?.classList.add("active");
+}
 }
 /* =========================================================
    إنشاء كرت
@@ -2196,6 +2309,84 @@ function card(item){
       </button>
     </div>
   `;
+}
+
+/* =========================================================
+   النسخ الاحتياطي المباشر من لوحة التحكم
+========================================================= */
+async function backupFirestoreFromDashboard(){
+  const collections = [
+    "Courses",
+    "students",
+    "Trainers",
+    "TrainersRates",
+    "BreakSettings",
+    "users",
+    "questions",
+    "exams",
+    "cefr_results",
+    "EmployeeTasks",
+    "AdminMeetLinks",
+    "FakeRegistrations",
+    "FakePromotions"
+  ];
+
+  const backup = {
+    projectId:"prudle-system",
+    exportedAt:new Date().toISOString(),
+    collections:{}
+  };
+
+  const failed = [];
+
+  try{
+    for(const collectionName of collections){
+      try{
+        const snap = await db.collection(collectionName).get();
+        backup.collections[collectionName] = {};
+
+        snap.forEach(doc=>{
+          backup.collections[collectionName][doc.id] = doc.data();
+        });
+      }catch(error){
+        console.warn("Backup skipped:",collectionName,error);
+        failed.push(collectionName);
+      }
+    }
+
+    const blob = new Blob(
+      [JSON.stringify(backup,null,2)],
+      {type:"application/json;charset=utf-8"}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const now = new Date();
+    const stamp = [
+      now.getFullYear(),
+      String(now.getMonth()+1).padStart(2,"0"),
+      String(now.getDate()).padStart(2,"0"),
+      "_",
+      String(now.getHours()).padStart(2,"0"),
+      String(now.getMinutes()).padStart(2,"0")
+    ].join("");
+
+    a.href = url;
+    a.download = `prudle-firestore-backup-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500);
+
+    if(failed.length){
+      alert("تم تنزيل النسخة الاحتياطية، وتعذر الوصول إلى بعض المجموعات: " + failed.join(", "));
+    }else{
+      alert("تم تنزيل النسخة الاحتياطية بنجاح");
+    }
+  }catch(error){
+    console.error("Backup error:",error);
+    alert("تعذر إنشاء النسخة الاحتياطية. تحقق من صلاحيات Firestore ثم حاول مرة أخرى.");
+  }
 }
 
 /* =========================================================
