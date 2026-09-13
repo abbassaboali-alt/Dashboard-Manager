@@ -79,6 +79,7 @@ img, video, canvas{
 </style>
 
 
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -200,6 +201,7 @@ html,body{
   box-shadow:0 12px 24px rgba(0,0,0,.18);
 }
 
+
 /* ===== SIDEBAR BOTTOM UTILITIES ===== */
 .sidebar-bottom{
   margin-top:22px;
@@ -226,11 +228,39 @@ html,body{
   background:linear-gradient(135deg,#334155,#64748b);
 }
 
+/* ===== COLORFUL SIDEBAR — SAME DESIGN ===== */
+#reportsBtnSide{background:linear-gradient(135deg,#164478,#2f78be);}
+#activitiesBtnSide{background:linear-gradient(135deg,#2e5d8d,#3f78aa);}
+#placementBtnSide{background:linear-gradient(135deg,#7c3aed,#a855f7)!important;color:#fff!important;}
+#examsBtnSide{background:linear-gradient(135deg,#315f8c,#4578a6);}
+#certificatesBtnSide{background:linear-gradient(135deg,#315f8c,#4578a6);}
+#crmBtnSide{background:linear-gradient(135deg,#f7d27c,#eab308)!important;color:#164478!important;}
+#onlineBtnSide{background:linear-gradient(135deg,#0891b2,#06b6d4)!important;color:#fff!important;}
+#bookingBtnSide{background:linear-gradient(135deg,#315f8c,#4578a6);}
+#tasksBtnSide{background:linear-gradient(135deg,#315f8c,#4578a6);}
+#adminBtnSide{background:linear-gradient(135deg,#315f8c,#4578a6);}
+#transferBtnSide{background:linear-gradient(135deg,#0f766e,#14b8a6);}
+
+#reportsBtnSide.active,
+#activitiesBtnSide.active,
+#placementBtnSide.active,
+#examsBtnSide.active,
+#certificatesBtnSide.active,
+#onlineBtnSide.active,
+#bookingBtnSide.active,
+#tasksBtnSide.active,
+#adminBtnSide.active,
+#transferBtnSide.active{
+  background:#fff!important;
+  color:#164478!important;
+}
+
 @media(max-width:980px){
   #supervisoryBtnMobile{background:linear-gradient(135deg,#0f766e,#14b8a6);}
   #newStudentsBtnMobile{background:linear-gradient(135deg,#2563eb,#3b82f6);}
   #backupBtnMobile{background:linear-gradient(135deg,#7c3aed,#9333ea);}
   #credentialsBtnMobile{background:linear-gradient(135deg,#334155,#64748b);}
+  #transferBtnMobile{background:linear-gradient(135deg,#0f766e,#14b8a6);}
 }
 
 /* ===== MAIN ===== */
@@ -1182,6 +1212,11 @@ html,body{
       <i class="fa-solid fa-gear"></i>
       <span id="adminSideText">قسم الإدارة</span>
     </button>
+    <button id="transferBtnSide" class="side-btn" onclick="load('transfer')">
+      <i class="fa-solid fa-right-left"></i>
+      <span id="transferSideText">الترحيل</span>
+    </button>
+
 
     <div class="sidebar-bottom">
       <button id="newStudentsBtnSide" class="side-btn" onclick="load('newstudents')">
@@ -1248,6 +1283,10 @@ html,body{
   <button id="adminBtnMobile" onclick="load('admin')">
     الإدارة
   </button>
+  <button id="transferBtnMobile" onclick="load('transfer')">
+    <span id="transferMobileText">الترحيل</span>
+  </button>
+
 
   <button id="newStudentsBtnMobile" onclick="load('newstudents')">
     <span id="newStudentsMobileText">المستجدين</span>
@@ -1443,6 +1482,7 @@ const UI_TEXT = {
     online:"قسم الأونلاين والاجتماعات",
     booking:"قسم الحجوزات",
     admin:"قسم الإدارة",
+    transfer:"الترحيل",
     tasks:"إسناد المهام",
     newstudents:"المستجدين",
     supervisory:"الجهة الإشرافية",
@@ -1458,6 +1498,7 @@ const UI_TEXT = {
     onlineMobile:"الأونلاين",
     bookingMobile:"الحجوزات",
     adminMobile:"الإدارة",
+    transferMobile:"الترحيل",
     tasksMobile:"المهام",
     newstudentsMobile:"المستجدين",
     supervisoryMobile:"الجهة الإشرافية",
@@ -1480,6 +1521,7 @@ const UI_TEXT = {
       online:"قسم الأونلاين",
       booking:"قسم الحجوزات",
       admin:"قسم الإدارة",
+      transfer:"الترحيل",
       tasks:"إسناد المهام",
       newstudents:"المستجدين"
     }
@@ -1504,6 +1546,7 @@ const UI_TEXT = {
     online:"Online & Meetings",
     booking:"Bookings",
     admin:"Administration",
+    transfer:"Transfers",
     tasks:"Task Assignment",
     newstudents:"New Students",
     supervisory:"Supervisory Authority",
@@ -1519,6 +1562,7 @@ const UI_TEXT = {
     onlineMobile:"Online",
     bookingMobile:"Bookings",
     adminMobile:"Admin",
+    transferMobile:"Transfers",
     tasksMobile:"Tasks",
     newstudentsMobile:"New Students",
     supervisoryMobile:"Supervision",
@@ -1541,6 +1585,7 @@ const UI_TEXT = {
       online:"Online",
       booking:"Bookings",
       admin:"Administration",
+      transfer:"Transfers",
       tasks:"Task Assignment",
       newstudents:"New Students"
     }
@@ -1587,6 +1632,11 @@ const EN_ITEM_TEXT = {
   "الجموم":"Al-Jumum",
   "أونلاين":"Online",
 
+  "ترحيل الطلاب – حضوري رجال":"Move Students – Men",
+  "ترحيل الطلاب – حضوري سيدات":"Move Students – Women",
+  "ترحيل الطلاب – فرع عسفان":"Move Students – Asfan",
+  "ترحيل الطلاب – فرع الجموم":"Move Students – Al-Jumum",
+  "ترحيل الطلاب – أونلاين":"Move Students – Online",
   "الدورات":"Courses",
   "حذف الدورات":"Delete Courses",
   "السجلات":"Records",
@@ -1610,6 +1660,7 @@ const EN_HEADING_TEXT = {
   "الفصول والتسجيلات":"Classes & Recordings",
   "اختبارات تحديد المستوى":"Placement Tests",
   "الحجوزات":"Bookings",
+  "تفاصيل الترحيل":"Student Transfer",
   "الإدارة":"Administration",
   "إسناد المهام":"Task Assignment",
   "المستجدين":"New Students"
@@ -1643,6 +1694,7 @@ function applyDashboardLanguage(){
   setText("onlineSideText",t.online);
   setText("bookingSideText",t.booking);
   setText("adminSideText",t.admin);
+  setText("transferSideText",t.transfer);
   setText("tasksSideText",t.tasks);
   setText("newStudentsSideText",t.newstudents);
   setText("supervisorySideText",t.supervisory);
@@ -1658,6 +1710,7 @@ function applyDashboardLanguage(){
   setText("onlineMobileText",t.onlineMobile);
   setText("bookingMobileText",t.bookingMobile);
   setText("adminMobileText",t.adminMobile);
+  setText("transferMobileText",t.transferMobile);
   setText("tasksMobileText",t.tasksMobile);
   setText("newStudentsMobileText",t.newstudentsMobile);
   setText("supervisoryMobileText",t.supervisoryMobile);
@@ -1886,6 +1939,7 @@ db.collection("EmployeeTasks")
     console.error("EmployeeTasks notification error:",error);
   });
 
+
 const DATA = {
 
 activities: {
@@ -2049,6 +2103,7 @@ online: {
           ["تقارير أداء المدربين","fa-chart-bar","https://www.prudle-education.com/activities-results","orange","تقييم أداء المدربين"],
          ["تقارير تعليقات المدرب ","fa-chart-bar","https://www.prudle-education.com/comments-reports","orange","التعليقات والملاحظات"],
 
+
           ["الرواتب","fa-money-bill","https://www.prudle-education.com/edit-salary","green","متابعة الرواتب والساعات"],
           ["المتأخرات","fa-triangle-exclamation","https://www.prudle-education.com/payments","red","عرض المتأخرات والتنبيهات"]
         ]
@@ -2091,6 +2146,7 @@ placement: {
 
 },
 
+
   tasks: {
     title: "إسناد المهام",
     sections: [
@@ -2125,7 +2181,7 @@ placement: {
           [
             "إضافة مستجد",
             "fa-user-plus",
-            "https://www.prudle-education.com/new-registrations",
+            "https://www.prudle.edu.sa/registration4",
             "green",
             "إضافة وتسجيل طالب مستجد"
           ],
@@ -2152,6 +2208,22 @@ placement: {
           ["عسفان","fa-building","https://www.prudle-education.com/osfan-section","orange","حجز برامج فرع عسفان"],
           ["الجموم","fa-location-dot","https://www.prudle-education.com/al-jumum-section","green","حجز برامج فرع الجموم"],
           ["أونلاين","fa-laptop","https://www.prudle-education.com/online-section","online","الحجوزات الخاصة بالدورات الأونلاين"]
+        ]
+      }
+    ]
+  },
+
+  transfer: {
+    title: "الترحيل",
+    sections: [
+      {
+        heading: "تفاصيل الترحيل",
+        items: [
+          ["ترحيل الطلاب – حضوري رجال","fa-user","https://www.prudle-education.com/move-to-male-section","blue","إدارة ترحيل الطلاب لفرع الرجال"],
+          ["ترحيل الطلاب – حضوري سيدات","fa-user-group","https://www.prudle-education.com/move-to-female-section","purple","إدارة ترحيل الطالبات"],
+          ["ترحيل الطلاب – فرع عسفان","fa-building","https://www.prudle-education.com/move-to-asfan","orange","إدارة ترحيل طلاب فرع عسفان"],
+          ["ترحيل الطلاب – فرع الجموم","fa-location-dot","https://www.prudle-education.com/move-to-al-jumum-section","green","إدارة ترحيل طلاب فرع الجموم"],
+          ["ترحيل الطلاب – أونلاين","fa-laptop","https://www.prudle-education.com/move-to-online-courses","online","إدارة ترحيل الطلاب الأونلاين"]
         ]
       }
     ]
@@ -2193,7 +2265,8 @@ const allSide = [
   "certificatesBtnSide",
   "crmBtnSide",
   "tasksBtnSide",
-  "newStudentsBtnSide"
+  "newStudentsBtnSide",
+  "transferBtnSide"
 ];
 
 const allMobile = [
@@ -2207,7 +2280,8 @@ const allMobile = [
   "certificatesBtnMobile",
   "crmBtnMobile",
   "tasksBtnMobile",
-  "newStudentsBtnMobile"
+  "newStudentsBtnMobile",
+  "transferBtnMobile"
 ];
 
   allSide.forEach(id=>{
@@ -2243,6 +2317,12 @@ const allMobile = [
     document.getElementById("adminBtnSide")?.classList.add("active");
     document.getElementById("adminBtnMobile")?.classList.add("active");
   }
+
+  if(type==="transfer"){
+    document.getElementById("transferBtnSide")?.classList.add("active");
+    document.getElementById("transferBtnMobile")?.classList.add("active");
+  }
+
 
   if(type==="placement"){
     document.getElementById("placementBtnSide")?.classList.add("active");
@@ -2516,4 +2596,3 @@ loadOpenCoursesTicker();
 
 </body>
 </html>
-
