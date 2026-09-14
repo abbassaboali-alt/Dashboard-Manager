@@ -1729,10 +1729,27 @@ function applyDashboardLanguage(){
 }
 
 function logout(){
-  localStorage.removeItem("username");
-  localStorage.removeItem("role");
-  localStorage.removeItem("loginDate");
-  window.location.href = "https://www.prudle-education.com/login";
+
+  try{
+
+    window.parent.postMessage(
+      "PRUDLE_LOGOUT",
+      "https://www.prudle-education.com"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Logout message error:",
+      error
+    );
+
+    window.location.replace(
+      "https://www.prudle-education.com/log-in-out"
+    );
+
+  }
+
 }
 
 function toggleDashboardLanguage(){
@@ -2513,9 +2530,27 @@ if(type === "online" && LIVE_MEET_LINK){
    تسجيل الخروج
 ========================================================= */
 function logout(){
-  localStorage.clear();
-  sessionStorage.clear();
-  location.replace("https://www.prudle-education.com/log-in-out");
+
+  try{
+
+    window.parent.postMessage(
+      "PRUDLE_LOGOUT",
+      "https://www.prudle-education.com"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Logout message error:",
+      error
+    );
+
+    window.location.replace(
+      "https://www.prudle-education.com/log-in-out"
+    );
+
+  }
+
 }
 
 /* =========================================================
