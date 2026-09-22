@@ -2669,16 +2669,42 @@ db.collection("USERS").onSnapshot(snapshot=>{
   console.warn("USERS task-name lookup error:",error);
 });
 
+/* تثبيت نافذة أسماء المسند إليهم بجانب زر إسناد المهام */
+(function setupTaskPopoverPosition(){
+  const wrap = document.querySelector(".task-nav-wrap");
+  const pop = document.getElementById("taskAssigneePopover");
+  const btn = document.getElementById("tasksBtnSide");
+  if(!wrap || !pop || !btn) return;
+
+  function positionPopover(){
+    if(window.innerWidth <= 980) return;
+    const rect = btn.getBoundingClientRect();
+    const popHeight = Math.min(pop.scrollHeight || 340, 420);
+    let top = rect.top;
+    if(top + popHeight > window.innerHeight - 12){
+      top = Math.max(12, window.innerHeight - popHeight - 12);
+    }
+    pop.style.top = top + "px";
+    pop.style.right = (window.innerWidth - rect.left + 10) + "px";
+  }
+
+  wrap.addEventListener("mouseenter", positionPopover);
+  window.addEventListener("resize", positionPopover);
+  window.addEventListener("scroll", positionPopover, true);
+})();
+
 db.collection("EmployeeTasks")
   .onSnapshot(snapshot=>{
 
     /* أول تحميل لا يسبب وميض للمهام القديمة */
     if(TASKS_LISTENER_READY){
       const justAssigned = snapshot.docChanges()
-        .filter(change =>
-          change.type === "added" &&
-          ((change.doc.data() && change.doc.data().status) || "assigned") === "assigned"
-        )
+        .filter(change => {
+          if(change.type !== "added") return false;
+          const data = change.doc.data() || {};
+          const status = String(data.status || "assigned").trim().toLowerCase();
+          return ["assigned","تم الإسناد","مسند","مسندة"].includes(status);
+        })
         .map(change=>({
           id:change.doc.id,
           ...(change.doc.data() || {})
