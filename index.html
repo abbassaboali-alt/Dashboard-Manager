@@ -2421,7 +2421,11 @@ function renderTaskAssignmentAlert(){
 
   function isActiveTask(t){
     const st = taskStatus(t);
-    return !["completed","cancelled","canceled","closed","done","مكتمل","مكتملة","تم الانتهاء","تم الإنهاء","ملغاة","ملغي","مغلق","مغلقة"].includes(st);
+    return ![
+      "completed","cancelled","canceled","closed","done",
+      "مكتمل","مكتملة","تم الانتهاء","تم الإنهاء",
+      "ملغاة","ملغي","مغلق","مغلقة"
+    ].includes(st);
   }
 
   function isWaitingTask(t){
@@ -2429,75 +2433,72 @@ function renderTaskAssignmentAlert(){
   }
 
   /*
-    صفحة إسناد المهام الحالية تحفظ الاسم في:
-    employeeName
-    وتحفظ اسم المستخدم في:
-    employeeUsername
-    لذلك نعتمد عليهما أولاً، مع دعم الحقول القديمة.
+    كود إسناد المهام يحفظ:
+    employeeName     = اسم الموظف
+    employeeUsername = اسم المستخدم
+    لذلك لا نعتمد على تسجيل دخول المدير لمعرفة المسند إليه.
   */
-  function getTaskAssigneeName(t){
-    // الحقول الحالية في كود إسناد المهام: employeeName / employeeUsername / employeeUserId
-    // مع دعم جميع الحقول القديمة المستخدمة في الإصدارات السابقة.
-    const candidates = [
-      t?.employeeName,
-      t?.employeeUsername,
-      t?.assignedEmployeeName,
-      t?.assignedEmployeeUsername,
-      t?.assigneeName,
-      t?.assigneeUsername,
-      t?.assignedToName,
-      t?.assignedToUsername,
-      t?.receiverName,
-      t?.receiverUsername,
-      t?.recipientName,
-      t?.recipientUsername,
-      t?.employee,
-      t?.assignedTo,
-      t?.assignee,
-      t?.receiver,
-      t?.recipient,
-      t?.toUser,
-      t?.toUsername,
-      t?.username,
-      t?.userName
-    ];
+  function getTaskAssignee(t){
+    const employeeName = safeTaskText(t?.employeeName);
+    const employeeUsername = safeTaskText(t?.employeeUsername);
 
-    function readAssigneeValue(value){
-      if(value === null || value === undefined) return "";
-      if(Array.isArray(value)){
-        for(const item of value){
-          const found = readAssigneeValue(item);
-          if(found) return found;
-        }
-        return "";
-      }
-      if(typeof value === "object"){
-        return readAssigneeValue(
-          value.name || value.displayName || value.fullName ||
-          value.employeeName || value.employeeUsername ||
-          value.username || value.userName || value.email || ""
-        );
-      }
-      const cleaned = safeTaskText(value);
-      return cleaned && cleaned !== "[object Object]" ? cleaned : "";
+    let username =
+      employeeUsername ||
+      safeTaskText(t?.assignedEmployeeUsername) ||
+      safeTaskText(t?.assigneeUsername) ||
+      safeTaskText(t?.assignedToUsername) ||
+      safeTaskText(t?.receiverUsername) ||
+      safeTaskText(t?.recipientUsername) ||
+      safeTaskText(t?.toUsername) ||
+      safeTaskText(t?.username) ||
+      safeTaskText(t?.userName);
+
+    let name =
+      employeeName ||
+      safeTaskText(t?.assignedEmployeeName) ||
+      safeTaskText(t?.assigneeName) ||
+      safeTaskText(t?.assignedToName) ||
+      safeTaskText(t?.receiverName) ||
+      safeTaskText(t?.recipientName);
+
+    // إذا كان لدينا username نستخدم USERS للحصول على الاسم الكامل.
+    if(username){
+      const resolved = TASK_USERS_LOOKUP.get(username.toLowerCase());
+      if(resolved) name = name || resolved;
     }
 
-    for(const value of candidates){
-      const found = readAssigneeValue(value);
-      if(found){
-        const lookup = TASK_USERS_LOOKUP.get(found.toLowerCase());
-        return lookup || found;
+    // دعم السجلات القديمة التي تحفظ قيمة نصية فقط.
+    if(!name){
+      const oldValue =
+        safeTaskText(t?.employee) ||
+        safeTaskText(t?.assignedTo) ||
+        safeTaskText(t?.assignee) ||
+        safeTaskText(t?.receiver) ||
+        safeTaskText(t?.recipient) ||
+        safeTaskText(t?.toUser);
+
+      if(oldValue && oldValue !== "[object Object]"){
+        const resolved = TASK_USERS_LOOKUP.get(oldValue.toLowerCase());
+        name = resolved || oldValue;
+        if(!username && !resolved) username = oldValue;
       }
     }
 
-    // في السجلات القديمة قد يكون المحفوظ فقط هو معرف المستخدم.
-    const userId = safeTaskText(t?.employeeUserId || t?.userId || t?.assignedUserId || t?.receiverUserId);
-    if(userId){
-      const lookup = TASK_USERS_LOOKUP.get(userId.toLowerCase());
-      if(lookup) return lookup;
+    const userId = safeTaskText(
+      t?.employeeUserId ||
+      t?.userId ||
+      t?.assignedUserId ||
+      t?.receiverUserId
+    );
+
+    if(!name && userId){
+      name = TASK_USERS_LOOKUP.get(userId.toLowerCase()) || "";
     }
 
-    return "غير محدد";
+    // لا نخفي السجل أبداً حتى لو كان قديماً جداً.
+    if(!name) name = username || "غير محدد";
+
+    return { name, username };
   }
 
   const activeTasks = TASKS_SNAPSHOT.filter(isActiveTask);
@@ -2515,17 +2516,32 @@ function renderTaskAssignmentAlert(){
   const byEmployee = new Map();
 
   activeTasks.forEach(t=>{
-    const name = getTaskAssigneeName(t);
-    const key = String(name).trim().toLowerCase();
+    const assignee = getTaskAssignee(t);
+    const key = String(
+      assignee.username || assignee.name || t.id || Math.random()
+    ).trim().toLowerCase();
+
     const priority = normalizeTaskPriority(t.priority);
 
     const current = byEmployee.get(key) || {
-      name,
+      name: assignee.name,
+      username: assignee.username,
       count:0,
       assigned:0,
       progress:0,
       priorities:[]
     };
+
+    // لو ظهر الاسم لاحقاً من سجل أحدث، نحتفظ به.
+    if(
+      (!current.name || current.name === "غير محدد") &&
+      assignee.name
+    ){
+      current.name = assignee.name;
+    }
+    if(!current.username && assignee.username){
+      current.username = assignee.username;
+    }
 
     current.count++;
     current.priorities.push(priority);
@@ -2546,8 +2562,17 @@ function renderTaskAssignmentAlert(){
     .sort((a,b)=>
       taskPriorityValue(b.priority)-taskPriorityValue(a.priority) ||
       b.count-a.count ||
-      a.name.localeCompare(b.name,"ar")
+      String(a.name).localeCompare(String(b.name),"ar")
     );
+
+  function employeeIdentityHtml(e){
+    const name = escapeTaskHtml(e.name || "غير محدد");
+    const username = safeTaskText(e.username);
+    return `
+      <strong>${name}</strong>
+      ${username ? `<div style="font-size:11px;color:#64748b;margin-top:3px;direction:ltr;text-align:right">@${escapeTaskHtml(username)}</div>` : ""}
+    `;
+  }
 
   function cardsHtml(){
     if(!employees.length){
@@ -2556,13 +2581,13 @@ function renderTaskAssignmentAlert(){
 
     return employees.map(e=>{
       const initial =
-        escapeTaskHtml((e.name || "?").trim().charAt(0) || "?");
+        escapeTaskHtml((e.name || e.username || "?").trim().charAt(0) || "?");
 
       return `
         <div class="task-assignee-card priority-${e.priority}">
           <div class="task-assignee-avatar">${initial}</div>
           <div>
-            <strong>${escapeTaskHtml(e.name)}</strong>
+            ${employeeIdentityHtml(e)}
             <small>
               ${e.count} مهمة • ${priorityArabic(e.priority)}
               ${e.assigned ? ` • ${e.assigned} بانتظار الاستلام` : ""}
@@ -2574,24 +2599,17 @@ function renderTaskAssignmentAlert(){
     }).join("");
   }
 
-  const panelList =
-    document.getElementById("taskAssigneesPanelList");
-  const panelCount =
-    document.getElementById("taskAssigneesPanelCount");
+  const panelList = document.getElementById("taskAssigneesPanelList");
+  const panelCount = document.getElementById("taskAssigneesPanelCount");
+  const reportsList = document.getElementById("reportsAssigneesList");
+  const reportsCount = document.getElementById("reportsAssigneesCount");
 
-  const reportsList =
-    document.getElementById("reportsAssigneesList");
-  const reportsCount =
-    document.getElementById("reportsAssigneesCount");
-
-  /* العدد هنا هو عدد الموظفين المسند إليهم، وليس عدد المهام */
   if(panelCount) panelCount.textContent = employees.length;
   if(reportsCount) reportsCount.textContent = employees.length;
 
   if(panelList) panelList.innerHTML = cardsHtml();
   if(reportsList) reportsList.innerHTML = cardsHtml();
 
-  /* الإشعار الجانبي عند المرور على زر إسناد المهام */
   if(listBox){
     if(!employees.length){
       listBox.className = "task-assignee-empty";
@@ -2600,7 +2618,7 @@ function renderTaskAssignmentAlert(){
       listBox.className = "";
       listBox.innerHTML = employees.map(e=>`
         <div class="task-assignee-item priority-${e.priority}">
-          <strong>${escapeTaskHtml(e.name)}</strong>
+          ${employeeIdentityHtml(e)}
           <small>
             أولوية ${priorityArabic(e.priority)}
             • ${e.count} مهمة
@@ -2612,7 +2630,6 @@ function renderTaskAssignmentAlert(){
     }
   }
 
-  /* الشريط المتحرك أعلى الداش بورد */
   if(tickerNote && tickerNames){
     if(employees.length){
       const topPriority = highestTaskPriority(activeTasks);
@@ -2627,11 +2644,12 @@ function renderTaskAssignmentAlert(){
 
       tickerNames.textContent =
         "🔔 مهام مسندة إلى: " +
-        employees
-          .map(e =>
-            `${e.name} — ${priorityArabic(e.priority)} (${e.count})`
-          )
-          .join("  •  ") +
+        employees.map(e=>{
+          const who = e.username
+            ? `${e.name} (@${e.username})`
+            : e.name;
+          return `${who} — ${priorityArabic(e.priority)} (${e.count})`;
+        }).join("  •  ") +
         "   —   ";
     }else{
       tickerNote.style.display = "none";
