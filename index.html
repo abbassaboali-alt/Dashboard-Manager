@@ -1550,6 +1550,111 @@ body{padding:0!important}
 }
 </style>
 
+<style>
+/* ===== TASK ASSIGNEES VISIBILITY FIX ===== */
+.sidebar{
+  overflow-y:auto!important;
+  overflow-x:visible!important;
+  z-index:10000!important;
+}
+.task-nav-wrap{
+  position:relative!important;
+  overflow:visible!important;
+  z-index:10020!important;
+}
+.task-assignee-popover{
+  position:fixed!important;
+  right:288px!important;
+  top:auto!important;
+  width:330px!important;
+  max-height:420px!important;
+  overflow-y:auto!important;
+  margin:0!important;
+  padding:14px!important;
+  background:#fff!important;
+  border:1px solid #d9e5f0!important;
+  border-radius:14px!important;
+  box-shadow:0 20px 55px rgba(8,38,66,.28)!important;
+  z-index:999999!important;
+  direction:rtl!important;
+}
+.task-nav-wrap:hover .task-assignee-popover{
+  display:block!important;
+}
+
+/* قائمة المسند إليهم أسفل التقارير */
+#reportsAssigneesPanel{
+  margin-top:20px;
+  background:#fff;
+  border:1px solid #dfe8f1;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(15,47,82,.08);
+  overflow:hidden;
+}
+.reports-assignees-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:16px 18px;
+  background:linear-gradient(180deg,#fff,#f7fafd);
+  border-bottom:1px solid #e5edf4;
+}
+.reports-assignees-head h3{
+  margin:0;
+  color:#0b2f52;
+  font-size:17px;
+}
+.reports-assignees-head p{
+  margin:4px 0 0;
+  color:#75869a;
+  font-size:12px;
+  font-weight:700;
+}
+.reports-assignees-count{
+  min-width:38px;height:38px;padding:0 10px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:11px;
+  background:#eaf3fb;color:#164478;font-weight:900;
+}
+.reports-assignees-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:10px;padding:14px;
+}
+@media(max-width:980px){
+  .task-assignee-popover{
+    right:12px!important;
+    left:12px!important;
+    width:auto!important;
+    top:70px!important;
+  }
+}
+</style>
+
+<style>
+#reportsAssigneesPanel .task-assignee-card{
+  min-height:72px;
+  background:#fff;
+}
+#reportsAssigneesPanel .task-assignee-card strong{
+  font-size:16px!important;
+  font-weight:900!important;
+  color:#0b2f52!important;
+}
+#reportsAssigneesPanel .task-assignee-card small{
+  font-size:12px!important;
+  margin-top:5px!important;
+}
+#reportsAssigneesPanel .task-assignee-empty{
+  grid-column:1/-1;
+  padding:18px;
+  text-align:center;
+  color:#75869a;
+  font-weight:800;
+}
+</style>
+
 </head>
 
 <body>
@@ -1794,6 +1899,17 @@ body{padding:0!important}
     <!-- ===== CONTENT ===== -->
     <div class="content-wrap">
       <div id="content"></div>
+
+      <section id="reportsAssigneesPanel" style="display:none">
+        <div class="reports-assignees-head">
+          <div>
+            <h3><i class="fa-solid fa-user-check"></i> المسند إليهم المهام</h3>
+            <p>أسماء الموظفين المسند إليهم المهام حالياً</p>
+          </div>
+          <span id="reportsAssigneesCount" class="reports-assignees-count">0</span>
+        </div>
+        <div id="reportsAssigneesList" class="reports-assignees-list"></div>
+      </section>
 
       <section id="taskAssigneesPanel" class="task-assignees-panel" style="display:none">
         <div class="task-assignees-panel-head">
@@ -2319,7 +2435,18 @@ function renderTaskAssignmentAlert(){
   const byEmployee = new Map();
 
   activeTasks.forEach(t=>{
-    const name = safeTaskText(t.employeeName) || "غير محدد";
+    const name =
+      safeTaskText(
+        t.employeeName ||
+        t.assigneeName ||
+        t.assignedToName ||
+        t.receiverName ||
+        t.employee ||
+        t.assignedTo ||
+        t.username ||
+        t.userName ||
+        t.receiverUsername
+      ) || "غير محدد";
     const key = name.toLowerCase();
     const priority = normalizeTaskPriority(t.priority);
 
@@ -2355,6 +2482,32 @@ function renderTaskAssignmentAlert(){
   const panel = document.getElementById("taskAssigneesPanel");
   const panelList = document.getElementById("taskAssigneesPanelList");
   const panelCount = document.getElementById("taskAssigneesPanelCount");
+
+  const reportsPanel = document.getElementById("reportsAssigneesPanel");
+  const reportsList = document.getElementById("reportsAssigneesList");
+  const reportsCount = document.getElementById("reportsAssigneesCount");
+
+  if(reportsCount) reportsCount.textContent = employees.length;
+
+  if(reportsList){
+    if(!employees.length){
+      reportsList.innerHTML =
+        '<div class="task-assignee-empty">لا توجد مهام مسندة حالياً</div>';
+    }else{
+      reportsList.innerHTML = employees.map(e=>{
+        const initial = escapeTaskHtml((e.name || "?").trim().charAt(0) || "?");
+        return `
+          <div class="task-assignee-card priority-${e.priority}">
+            <div class="task-assignee-avatar">${initial}</div>
+            <div>
+              <strong>${escapeTaskHtml(e.name)}</strong>
+              <small>${e.count} مهمة • ${priorityArabic(e.priority)}</small>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
 
   if(panelCount) panelCount.textContent = employees.length;
 
@@ -2990,6 +3143,10 @@ function load(type){
   if(assigneesPanel){
     assigneesPanel.style.display = type === "tasks" ? "block" : "none";
   }
+  const reportsAssigneesPanel = document.getElementById("reportsAssigneesPanel");
+  if(reportsAssigneesPanel){
+    reportsAssigneesPanel.style.display = type === "reports" ? "block" : "none";
+  }
 
   window.CURRENT_SECTION = type;
   activateButtons(type);
@@ -3024,6 +3181,11 @@ if(type === "online" && LIVE_MEET_LINK){
   });
 
   document.getElementById("content").innerHTML = html;
+
+  /* تحديث أسماء المسند إليهم فور فتح قسم التقارير/المهام */
+  if(type === "reports" || type === "tasks"){
+    renderTaskAssignmentAlert();
+  }
 }
 
 /* =========================================================
