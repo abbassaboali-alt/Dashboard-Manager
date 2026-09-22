@@ -1132,6 +1132,357 @@ html,body{
 }
 
 </style>
+
+<style id="prudle-redesign-2026">
+:root{
+  --p-navy:#0b2f52;
+  --p-blue:#164478;
+  --p-blue2:#2369a8;
+  --p-cyan:#38bdf8;
+  --p-gold:#e9b949;
+  --p-bg:#f5f8fc;
+  --p-card:#ffffff;
+  --p-text:#172b42;
+  --p-muted:#6f8094;
+  --p-line:#e3eaf2;
+  --p-shadow:0 10px 30px rgba(15,47,82,.08);
+  --p-shadow2:0 18px 46px rgba(15,47,82,.13);
+  --p-radius:18px;
+}
+
+html,body{
+  background:var(--p-bg)!important;
+  color:var(--p-text)!important;
+}
+body{padding:0!important}
+.app{background:var(--p-bg);}
+
+/* Sidebar */
+.sidebar{
+  width:278px!important;
+  padding:20px 14px!important;
+  background:linear-gradient(180deg,#0b2f52 0%,#123f69 52%,#0b2f52 100%)!important;
+  box-shadow:10px 0 35px rgba(8,34,58,.10)!important;
+  position:sticky!important;
+  top:0!important;
+  height:100vh!important;
+  overflow-y:auto!important;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.22) transparent;
+}
+.brand{
+  margin:0 4px 18px!important;
+  padding:16px 10px 20px!important;
+  text-align:right!important;
+  border-bottom:1px solid rgba(255,255,255,.13)!important;
+}
+.brand h1{
+  font-size:30px!important;
+  letter-spacing:.3px!important;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand h1::before{
+  content:"P";
+  width:42px;height:42px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,#fff,#dcecff);
+  color:var(--p-blue);
+  font-size:22px;
+  box-shadow:0 8px 18px rgba(0,0,0,.16);
+}
+.brand p{font-size:12px!important;opacity:.72!important;margin-inline-start:53px!important}
+.menu-title{
+  font-size:11px!important;
+  letter-spacing:.4px;
+  opacity:.62!important;
+  margin:14px 10px 8px!important;
+}
+.side-btn,
+#reportsBtnSide,#activitiesBtnSide,#placementBtnSide,#examsBtnSide,
+#certificatesBtnSide,#crmBtnSide,#onlineBtnSide,#bookingBtnSide,
+#tasksBtnSide,#adminBtnSide,#transferBtnSide,#breakTimeBtnSide,
+#newStudentsBtnSide,#supervisoryBtnSide,#backupBtnSide,#credentialsBtnSide{
+  background:transparent!important;
+  color:#eef6ff!important;
+  min-height:48px!important;
+  padding:11px 12px!important;
+  margin:3px 0!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+  font-size:14px!important;
+  font-weight:800!important;
+  border:1px solid transparent!important;
+}
+.side-btn i{font-size:16px!important;color:#9dd8ff!important}
+.side-btn:hover{
+  transform:none!important;
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,255,255,.08)!important;
+}
+.side-btn.active,
+#reportsBtnSide.active,#activitiesBtnSide.active,#placementBtnSide.active,
+#examsBtnSide.active,#certificatesBtnSide.active,#onlineBtnSide.active,
+#bookingBtnSide.active,#tasksBtnSide.active,#adminBtnSide.active,
+#transferBtnSide.active,#breakTimeBtnSide.active{
+  background:#fff!important;
+  color:var(--p-blue)!important;
+  box-shadow:0 9px 22px rgba(0,0,0,.14)!important;
+}
+.side-btn.active i{color:var(--p-blue)!important}
+.sidebar-bottom{
+  margin-top:14px!important;
+  padding-top:12px!important;
+  border-top:1px solid rgba(255,255,255,.12)!important;
+}
+
+/* Main and topbar */
+.main{background:var(--p-bg)!important}
+.topbar{
+  margin:0!important;
+  padding:15px 26px!important;
+  min-height:72px;
+  background:rgba(255,255,255,.94)!important;
+  backdrop-filter:blur(16px)!important;
+  border-bottom:1px solid var(--p-line)!important;
+  box-shadow:0 3px 16px rgba(15,47,82,.035)!important;
+}
+.topbar-left h2{
+  font-size:23px!important;
+  color:var(--p-navy)!important;
+  letter-spacing:-.2px;
+}
+.topbar-actions{gap:9px!important}
+.logout,.lang-toggle{
+  min-height:42px!important;
+  padding:10px 15px!important;
+  border-radius:11px!important;
+  box-shadow:none!important;
+  font-size:13px!important;
+}
+.logout{
+  background:#fff!important;
+  color:#b42318!important;
+  border:1px solid #ffd5d2!important;
+}
+.logout:hover{background:#fff5f4!important}
+.lang-toggle{
+  background:#eef5fc!important;
+  color:var(--p-blue)!important;
+  border:1px solid #d9e7f4!important;
+  margin:0!important;
+}
+
+/* Hero */
+.hero{
+  margin:22px 26px 18px!important;
+  padding:28px 30px!important;
+  min-height:180px;
+  border-radius:22px!important;
+  background:
+    radial-gradient(circle at 8% 20%,rgba(56,189,248,.24),transparent 25%),
+    linear-gradient(125deg,#0b2f52 0%,#164478 48%,#2369a8 100%)!important;
+  box-shadow:0 16px 38px rgba(22,68,120,.16)!important;
+}
+.hero::before{
+  width:240px!important;height:240px!important;
+  top:-125px!important;left:-60px!important;
+  border:1px solid rgba(255,255,255,.13);
+  background:transparent!important;
+}
+.hero::after{
+  width:150px!important;height:150px!important;
+  right:auto!important;left:110px!important;bottom:-105px!important;
+  border:1px solid rgba(255,255,255,.11);
+  background:transparent!important;
+}
+.hero h3{font-size:29px!important;margin-bottom:7px!important}
+.hero p{font-size:14px!important;opacity:.78!important}
+.ticker{
+  margin-top:20px!important;
+  border-radius:12px!important;
+  background:rgba(255,255,255,.09)!important;
+  border:1px solid rgba(255,255,255,.10);
+}
+.ticker-track{
+  padding:10px 0!important;
+  font-size:14px!important;
+  background:none!important;
+  -webkit-text-fill-color:#fff!important;
+  color:#fff!important;
+  text-shadow:none!important;
+  opacity:.92;
+}
+.task-ticker-note{
+  border-radius:12px!important;
+  font-size:12px!important;
+  padding:9px 12px!important;
+}
+
+/* Content */
+.content-wrap{padding:2px 26px 34px!important}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px!important;
+  color:var(--p-navy)!important;
+  margin:17px 0 14px!important;
+}
+.section-title::before{
+  content:"";
+  width:5px;height:24px;
+  border-radius:99px;
+  background:linear-gradient(180deg,var(--p-blue2),var(--p-cyan));
+}
+.cards{
+  grid-template-columns:repeat(auto-fit,minmax(235px,1fr))!important;
+  gap:14px!important;
+}
+.card,
+.card.green,.card.red,.card.gold,.card.blue,.card.purple,.card.orange,.card.online,.card.weak-followup{
+  position:relative;
+  overflow:hidden;
+  min-height:205px!important;
+  padding:20px 18px 16px!important;
+  border-radius:16px!important;
+  border:1px solid var(--p-line)!important;
+  border-top:3px solid var(--accent,#2369a8)!important;
+  background:#fff!important;
+  box-shadow:var(--p-shadow)!important;
+  text-align:right!important;
+}
+.card.green{--accent:#16a34a}
+.card.red{--accent:#e34d59}
+.card.gold{--accent:#d89a18}
+.card.blue{--accent:#2f73c8}
+.card.purple{--accent:#7c4dcc}
+.card.orange{--accent:#e67e22}
+.card.online{--accent:#0891b2}
+.card.weak-followup{--accent:#d7265e}
+.card:hover{
+  transform:translateY(-4px)!important;
+  box-shadow:var(--p-shadow2)!important;
+  border-color:#d7e1ec!important;
+  border-top-color:var(--accent)!important;
+}
+.card .icon-box{
+  width:48px!important;height:48px!important;
+  margin:0 0 14px!important;
+  border-radius:13px!important;
+  background:color-mix(in srgb,var(--accent) 10%,white)!important;
+  color:var(--accent)!important;
+  font-size:20px!important;
+}
+.card h3{
+  margin:0 0 7px!important;
+  color:var(--p-navy)!important;
+  font-size:17px!important;
+  line-height:1.45!important;
+}
+.card .desc{
+  min-height:42px!important;
+  margin:0 0 16px!important;
+  color:var(--p-muted)!important;
+  font-size:12.5px!important;
+  line-height:1.65!important;
+}
+.card button{
+  width:100%;
+  padding:10px 12px!important;
+  border-radius:10px!important;
+  background:#f0f5fa!important;
+  color:var(--p-blue)!important;
+  border:1px solid #e0e9f2!important;
+  font-size:12.5px!important;
+  box-shadow:none!important;
+}
+.card button:hover{
+  transform:none!important;
+  background:var(--p-blue)!important;
+  color:#fff!important;
+}
+
+/* Task popup */
+.task-assignee-popover{
+  border-radius:14px!important;
+  border:1px solid var(--p-line)!important;
+  box-shadow:0 20px 50px rgba(10,40,70,.18)!important;
+}
+
+/* Mobile navigation: clean horizontal chips */
+.mobile-menu{
+  background:#fff;
+  border-bottom:1px solid var(--p-line);
+}
+@media(max-width:980px){
+  body{padding:0!important}
+  .sidebar{display:none!important}
+  .mobile-menu{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    gap:7px!important;
+    padding:10px!important;
+    scrollbar-width:none;
+  }
+  .mobile-menu::-webkit-scrollbar{display:none}
+  .mobile-menu button,
+  #reportsBtnMobile,#activitiesBtnMobile,#placementBtnMobile,#examsBtnMobile,
+  #certificatesBtnMobile,#onlineBtnMobile,#crmBtnMobile,#bookingBtnMobile,
+  #tasksBtnMobile,#adminBtnMobile,#transferBtnMobile,#breakTimeBtnMobile,
+  #newStudentsBtnMobile,#supervisoryBtnMobile,#backupBtnMobile,#credentialsBtnMobile{
+    flex:0 0 auto!important;
+    width:auto!important;
+    min-height:40px!important;
+    padding:9px 12px!important;
+    border-radius:10px!important;
+    border:1px solid #dfe8f1!important;
+    background:#f7f9fc!important;
+    color:var(--p-blue)!important;
+    box-shadow:none!important;
+    font-size:12px!important;
+    white-space:nowrap;
+  }
+  .mobile-menu button.active{
+    background:var(--p-blue)!important;
+    color:#fff!important;
+    outline:none!important;
+    box-shadow:none!important;
+  }
+  .topbar{padding:12px 14px!important;min-height:62px}
+  .hero{margin:12px!important;padding:22px 18px!important;min-height:155px}
+  .content-wrap{padding:0 12px 24px!important}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  .card{min-height:205px!important;padding:15px 12px 12px!important}
+}
+@media(max-width:600px){
+  .topbar{flex-direction:row!important;align-items:center!important}
+  .topbar-left{text-align:start!important;min-width:0}
+  .topbar-left h2{font-size:17px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar-actions{width:auto!important;justify-content:flex-end!important}
+  .logout,.lang-toggle{flex:0 0 auto!important;padding:9px 10px!important;font-size:11px!important}
+  .hero{border-radius:16px!important;margin:10px!important}
+  .hero h3{font-size:21px!important}
+  .hero p{font-size:12px!important}
+  .ticker-track{font-size:12px!important}
+  .content-wrap{padding:0 10px 22px!important}
+  .section-title{font-size:17px!important;margin:14px 0 10px!important}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .card{min-height:190px!important;border-radius:14px!important;padding:13px 10px 10px!important}
+  .card .icon-box{width:42px!important;height:42px!important;font-size:18px!important;margin-bottom:10px!important}
+  .card h3{font-size:13.5px!important}
+  .card .desc{font-size:10.5px!important;min-height:38px!important}
+  .card button{font-size:11px!important;padding:9px 6px!important}
+}
+@media(max-width:390px){
+  .cards{grid-template-columns:1fr!important}
+  .card{min-height:170px!important}
+}
+</style>
+
 </head>
 
 <body>
@@ -2149,7 +2500,6 @@ online: {
           ["الحضور","fa-user-check","https://www.prudle-education.com/attendance-report","blue","تقارير حضور الطلاب والمدربين"],
           ["الدرجات","fa-file-lines","https://www.prudle-education.com/grades-report","green","عرض ومتابعة نتائج الدرجات"],
           ["الواجبات","fa-book","https://www.prudle-education.com/homework-reports","gold","متابعة الواجبات والتسليمات"],
-          ["واتس","fa-whatsapp","https://www.prudle-education.com/weak-students","online","متابعة الطلاب عبر الواتساب"],
           ["الخطة","fa-calendar","https://www.prudle-education.com/courses-plan-t","purple","عرض الخطة الدراسية"],
           ["الأعداد","fa-chart-bar","https://www.prudle-education.com/students-numbers","orange","إحصائيات وأعداد الطلاب"],
           ["الاستعلام الاكاديمي العام","fa-chart-bar","https://www.prudle-education.com/dashboard-students","orange","الشهادات والدرجات"],
@@ -2298,7 +2648,6 @@ placement: {
           ["الدرجات","fa-star","https://www.prudle-education.com/grades-reports","purple","إدارة درجات الطلاب"],
           ["الكويزات","fa-paperclip","https://www.prudle-education.com/create-a-quiz","orange","إدارة الواجبات والاختبارات"],
           ["الرواتب","fa-clock","https://www.prudle-education.com/edit-timesheet","green","الرواتب والحسابات"],
-          ["المستخدمين","fa-users","https://www.prudle-education.com/users","online","إدارة المستخدمين والصلاحيات"]
         ]
       }
     ]
