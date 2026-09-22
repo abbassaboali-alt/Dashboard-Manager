@@ -1132,529 +1132,6 @@ html,body{
 }
 
 </style>
-
-<style id="prudle-redesign-2026">
-:root{
-  --p-navy:#0b2f52;
-  --p-blue:#164478;
-  --p-blue2:#2369a8;
-  --p-cyan:#38bdf8;
-  --p-gold:#e9b949;
-  --p-bg:#f5f8fc;
-  --p-card:#ffffff;
-  --p-text:#172b42;
-  --p-muted:#6f8094;
-  --p-line:#e3eaf2;
-  --p-shadow:0 10px 30px rgba(15,47,82,.08);
-  --p-shadow2:0 18px 46px rgba(15,47,82,.13);
-  --p-radius:18px;
-}
-
-html,body{
-  background:var(--p-bg)!important;
-  color:var(--p-text)!important;
-}
-body{padding:0!important}
-.app{background:var(--p-bg);}
-
-/* Sidebar */
-.sidebar{
-  width:278px!important;
-  padding:20px 14px!important;
-  background:linear-gradient(180deg,#0b2f52 0%,#123f69 52%,#0b2f52 100%)!important;
-  box-shadow:10px 0 35px rgba(8,34,58,.10)!important;
-  position:sticky!important;
-  top:0!important;
-  height:100vh!important;
-  overflow-y:auto!important;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(255,255,255,.22) transparent;
-}
-.brand{
-  margin:0 4px 18px!important;
-  padding:16px 10px 20px!important;
-  text-align:right!important;
-  border-bottom:1px solid rgba(255,255,255,.13)!important;
-}
-.brand h1{
-  font-size:30px!important;
-  letter-spacing:.3px!important;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.brand h1::before{
-  content:"P";
-  width:42px;height:42px;
-  display:inline-flex;align-items:center;justify-content:center;
-  border-radius:13px;
-  background:linear-gradient(135deg,#fff,#dcecff);
-  color:var(--p-blue);
-  font-size:22px;
-  box-shadow:0 8px 18px rgba(0,0,0,.16);
-}
-.brand p{font-size:12px!important;opacity:.72!important;margin-inline-start:53px!important}
-.menu-title{
-  font-size:11px!important;
-  letter-spacing:.4px;
-  opacity:.62!important;
-  margin:14px 10px 8px!important;
-}
-.side-btn,
-#reportsBtnSide,#activitiesBtnSide,#placementBtnSide,#examsBtnSide,
-#certificatesBtnSide,#crmBtnSide,#onlineBtnSide,#bookingBtnSide,
-#tasksBtnSide,#adminBtnSide,#transferBtnSide,#breakTimeBtnSide,
-#newStudentsBtnSide,#supervisoryBtnSide,#backupBtnSide,#credentialsBtnSide{
-  background:transparent!important;
-  color:#eef6ff!important;
-  min-height:48px!important;
-  padding:11px 12px!important;
-  margin:3px 0!important;
-  border-radius:12px!important;
-  box-shadow:none!important;
-  font-size:14px!important;
-  font-weight:800!important;
-  border:1px solid transparent!important;
-}
-.side-btn i{font-size:16px!important;color:#9dd8ff!important}
-.side-btn:hover{
-  transform:none!important;
-  background:rgba(255,255,255,.08)!important;
-  border-color:rgba(255,255,255,.08)!important;
-}
-.side-btn.active,
-#reportsBtnSide.active,#activitiesBtnSide.active,#placementBtnSide.active,
-#examsBtnSide.active,#certificatesBtnSide.active,#onlineBtnSide.active,
-#bookingBtnSide.active,#tasksBtnSide.active,#adminBtnSide.active,
-#transferBtnSide.active,#breakTimeBtnSide.active{
-  background:#fff!important;
-  color:var(--p-blue)!important;
-  box-shadow:0 9px 22px rgba(0,0,0,.14)!important;
-}
-.side-btn.active i{color:var(--p-blue)!important}
-.sidebar-bottom{
-  margin-top:14px!important;
-  padding-top:12px!important;
-  border-top:1px solid rgba(255,255,255,.12)!important;
-}
-
-/* Main and topbar */
-.main{background:var(--p-bg)!important}
-.topbar{
-  margin:0!important;
-  padding:15px 26px!important;
-  min-height:72px;
-  background:rgba(255,255,255,.94)!important;
-  backdrop-filter:blur(16px)!important;
-  border-bottom:1px solid var(--p-line)!important;
-  box-shadow:0 3px 16px rgba(15,47,82,.035)!important;
-}
-.topbar-left h2{
-  font-size:23px!important;
-  color:var(--p-navy)!important;
-  letter-spacing:-.2px;
-}
-.topbar-actions{gap:9px!important}
-.logout,.lang-toggle{
-  min-height:42px!important;
-  padding:10px 15px!important;
-  border-radius:11px!important;
-  box-shadow:none!important;
-  font-size:13px!important;
-}
-.logout{
-  background:#fff!important;
-  color:#b42318!important;
-  border:1px solid #ffd5d2!important;
-}
-.logout:hover{background:#fff5f4!important}
-.lang-toggle{
-  background:#eef5fc!important;
-  color:var(--p-blue)!important;
-  border:1px solid #d9e7f4!important;
-  margin:0!important;
-}
-
-/* Hero */
-.hero{
-  margin:22px 26px 18px!important;
-  padding:28px 30px!important;
-  min-height:180px;
-  border-radius:22px!important;
-  background:
-    radial-gradient(circle at 8% 20%,rgba(56,189,248,.24),transparent 25%),
-    linear-gradient(125deg,#0b2f52 0%,#164478 48%,#2369a8 100%)!important;
-  box-shadow:0 16px 38px rgba(22,68,120,.16)!important;
-}
-.hero::before{
-  width:240px!important;height:240px!important;
-  top:-125px!important;left:-60px!important;
-  border:1px solid rgba(255,255,255,.13);
-  background:transparent!important;
-}
-.hero::after{
-  width:150px!important;height:150px!important;
-  right:auto!important;left:110px!important;bottom:-105px!important;
-  border:1px solid rgba(255,255,255,.11);
-  background:transparent!important;
-}
-.hero h3{font-size:29px!important;margin-bottom:7px!important}
-.hero p{font-size:14px!important;opacity:.78!important}
-.ticker{
-  margin-top:20px!important;
-  border-radius:12px!important;
-  background:rgba(255,255,255,.09)!important;
-  border:1px solid rgba(255,255,255,.10);
-}
-.ticker-track{
-  padding:10px 0!important;
-  font-size:14px!important;
-  background:none!important;
-  -webkit-text-fill-color:#fff!important;
-  color:#fff!important;
-  text-shadow:none!important;
-  opacity:.92;
-}
-.task-ticker-note{
-  border-radius:12px!important;
-  font-size:12px!important;
-  padding:9px 12px!important;
-}
-
-/* Content */
-.content-wrap{padding:2px 26px 34px!important}
-.section-title{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:20px!important;
-  color:var(--p-navy)!important;
-  margin:17px 0 14px!important;
-}
-.section-title::before{
-  content:"";
-  width:5px;height:24px;
-  border-radius:99px;
-  background:linear-gradient(180deg,var(--p-blue2),var(--p-cyan));
-}
-.cards{
-  grid-template-columns:repeat(auto-fit,minmax(235px,1fr))!important;
-  gap:14px!important;
-}
-.card,
-.card.green,.card.red,.card.gold,.card.blue,.card.purple,.card.orange,.card.online,.card.weak-followup{
-  position:relative;
-  overflow:hidden;
-  min-height:205px!important;
-  padding:20px 18px 16px!important;
-  border-radius:16px!important;
-  border:1px solid var(--p-line)!important;
-  border-top:3px solid var(--accent,#2369a8)!important;
-  background:#fff!important;
-  box-shadow:var(--p-shadow)!important;
-  text-align:right!important;
-}
-.card.green{--accent:#16a34a}
-.card.red{--accent:#e34d59}
-.card.gold{--accent:#d89a18}
-.card.blue{--accent:#2f73c8}
-.card.purple{--accent:#7c4dcc}
-.card.orange{--accent:#e67e22}
-.card.online{--accent:#0891b2}
-.card.weak-followup{--accent:#d7265e}
-.card:hover{
-  transform:translateY(-4px)!important;
-  box-shadow:var(--p-shadow2)!important;
-  border-color:#d7e1ec!important;
-  border-top-color:var(--accent)!important;
-}
-.card .icon-box{
-  width:48px!important;height:48px!important;
-  margin:0 0 14px!important;
-  border-radius:13px!important;
-  background:color-mix(in srgb,var(--accent) 10%,white)!important;
-  color:var(--accent)!important;
-  font-size:20px!important;
-}
-.card h3{
-  margin:0 0 7px!important;
-  color:var(--p-navy)!important;
-  font-size:17px!important;
-  line-height:1.45!important;
-}
-.card .desc{
-  min-height:42px!important;
-  margin:0 0 16px!important;
-  color:var(--p-muted)!important;
-  font-size:12.5px!important;
-  line-height:1.65!important;
-}
-.card button{
-  width:100%;
-  padding:10px 12px!important;
-  border-radius:10px!important;
-  background:#f0f5fa!important;
-  color:var(--p-blue)!important;
-  border:1px solid #e0e9f2!important;
-  font-size:12.5px!important;
-  box-shadow:none!important;
-}
-.card button:hover{
-  transform:none!important;
-  background:var(--p-blue)!important;
-  color:#fff!important;
-}
-
-/* Task popup */
-.task-assignee-popover{
-  border-radius:14px!important;
-  border:1px solid var(--p-line)!important;
-  box-shadow:0 20px 50px rgba(10,40,70,.18)!important;
-}
-
-
-/* Assigned employees panel */
-.task-assignees-panel{
-  margin-top:18px;
-  background:#fff;
-  border:1px solid var(--p-line);
-  border-radius:16px;
-  box-shadow:var(--p-shadow);
-  overflow:hidden;
-}
-.task-assignees-panel-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  padding:17px 19px;
-  border-bottom:1px solid var(--p-line);
-  background:linear-gradient(180deg,#fff,#f8fbfe);
-}
-.task-assignees-panel-head h3{
-  margin:0 0 4px;
-  color:var(--p-navy);
-  font-size:17px;
-}
-.task-assignees-panel-head h3 i{color:var(--p-blue2);margin-inline-end:7px}
-.task-assignees-panel-head p{
-  margin:0;
-  color:var(--p-muted);
-  font-size:12px;
-  font-weight:700;
-}
-.task-assignees-panel-count{
-  min-width:38px;height:38px;padding:0 10px;
-  display:inline-flex;align-items:center;justify-content:center;
-  border-radius:11px;background:#eaf3fb;color:var(--p-blue);
-  font-weight:900;
-}
-.task-assignees-panel-list{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:10px;
-  padding:14px;
-}
-.task-assignee-card{
-  display:flex;align-items:center;gap:10px;
-  padding:12px;border:1px solid #e5edf5;border-radius:12px;
-  background:#fbfdff;
-}
-.task-assignee-avatar{
-  width:38px;height:38px;flex:0 0 38px;
-  border-radius:11px;display:flex;align-items:center;justify-content:center;
-  background:#eaf3fb;color:var(--p-blue);font-weight:900;
-}
-.task-assignee-card strong{display:block;color:var(--p-navy);font-size:13px}
-.task-assignee-card small{display:block;color:var(--p-muted);font-size:11px;margin-top:2px}
-.task-assignee-card.priority-high{border-inline-start:4px solid #ef4444}
-.task-assignee-card.priority-medium{border-inline-start:4px solid #f59e0b}
-.task-assignee-card.priority-low{border-inline-start:4px solid #22c55e}
-
-/* Make hover popover easier to read in the redesigned sidebar */
-.task-assignee-popover{
-  right:calc(100% + 8px)!important;
-  top:-6px!important;
-  width:320px!important;
-}
-.task-nav-wrap:hover .task-assignee-popover{display:block!important}
-
-/* Mobile navigation: clean horizontal chips */
-.mobile-menu{
-  background:#fff;
-  border-bottom:1px solid var(--p-line);
-}
-@media(max-width:980px){
-  body{padding:0!important}
-  .sidebar{display:none!important}
-  .mobile-menu{
-    display:flex!important;
-    flex-wrap:nowrap!important;
-    overflow-x:auto!important;
-    gap:7px!important;
-    padding:10px!important;
-    scrollbar-width:none;
-  }
-  .mobile-menu::-webkit-scrollbar{display:none}
-  .mobile-menu button,
-  #reportsBtnMobile,#activitiesBtnMobile,#placementBtnMobile,#examsBtnMobile,
-  #certificatesBtnMobile,#onlineBtnMobile,#crmBtnMobile,#bookingBtnMobile,
-  #tasksBtnMobile,#adminBtnMobile,#transferBtnMobile,#breakTimeBtnMobile,
-  #newStudentsBtnMobile,#supervisoryBtnMobile,#backupBtnMobile,#credentialsBtnMobile{
-    flex:0 0 auto!important;
-    width:auto!important;
-    min-height:40px!important;
-    padding:9px 12px!important;
-    border-radius:10px!important;
-    border:1px solid #dfe8f1!important;
-    background:#f7f9fc!important;
-    color:var(--p-blue)!important;
-    box-shadow:none!important;
-    font-size:12px!important;
-    white-space:nowrap;
-  }
-  .mobile-menu button.active{
-    background:var(--p-blue)!important;
-    color:#fff!important;
-    outline:none!important;
-    box-shadow:none!important;
-  }
-  .topbar{padding:12px 14px!important;min-height:62px}
-  .hero{margin:12px!important;padding:22px 18px!important;min-height:155px}
-  .content-wrap{padding:0 12px 24px!important}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-  .card{min-height:205px!important;padding:15px 12px 12px!important}
-}
-@media(max-width:600px){
-  .topbar{flex-direction:row!important;align-items:center!important}
-  .topbar-left{text-align:start!important;min-width:0}
-  .topbar-left h2{font-size:17px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .topbar-actions{width:auto!important;justify-content:flex-end!important}
-  .logout,.lang-toggle{flex:0 0 auto!important;padding:9px 10px!important;font-size:11px!important}
-  .hero{border-radius:16px!important;margin:10px!important}
-  .hero h3{font-size:21px!important}
-  .hero p{font-size:12px!important}
-  .ticker-track{font-size:12px!important}
-  .content-wrap{padding:0 10px 22px!important}
-  .section-title{font-size:17px!important;margin:14px 0 10px!important}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
-  .card{min-height:190px!important;border-radius:14px!important;padding:13px 10px 10px!important}
-  .card .icon-box{width:42px!important;height:42px!important;font-size:18px!important;margin-bottom:10px!important}
-  .card h3{font-size:13.5px!important}
-  .card .desc{font-size:10.5px!important;min-height:38px!important}
-  .card button{font-size:11px!important;padding:9px 6px!important}
-}
-@media(max-width:390px){
-  .cards{grid-template-columns:1fr!important}
-  .card{min-height:170px!important}
-}
-</style>
-
-<style>
-/* ===== TASK ASSIGNEES VISIBILITY FIX ===== */
-.sidebar{
-  overflow-y:auto!important;
-  overflow-x:visible!important;
-  z-index:10000!important;
-}
-.task-nav-wrap{
-  position:relative!important;
-  overflow:visible!important;
-  z-index:10020!important;
-}
-.task-assignee-popover{
-  position:fixed!important;
-  right:288px!important;
-  top:auto!important;
-  width:330px!important;
-  max-height:420px!important;
-  overflow-y:auto!important;
-  margin:0!important;
-  padding:14px!important;
-  background:#fff!important;
-  border:1px solid #d9e5f0!important;
-  border-radius:14px!important;
-  box-shadow:0 20px 55px rgba(8,38,66,.28)!important;
-  z-index:999999!important;
-  direction:rtl!important;
-}
-.task-nav-wrap:hover .task-assignee-popover{
-  display:block!important;
-}
-
-/* قائمة المسند إليهم أسفل التقارير */
-#reportsAssigneesPanel{
-  margin-top:20px;
-  background:#fff;
-  border:1px solid #dfe8f1;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(15,47,82,.08);
-  overflow:hidden;
-}
-.reports-assignees-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:16px 18px;
-  background:linear-gradient(180deg,#fff,#f7fafd);
-  border-bottom:1px solid #e5edf4;
-}
-.reports-assignees-head h3{
-  margin:0;
-  color:#0b2f52;
-  font-size:17px;
-}
-.reports-assignees-head p{
-  margin:4px 0 0;
-  color:#75869a;
-  font-size:12px;
-  font-weight:700;
-}
-.reports-assignees-count{
-  min-width:38px;height:38px;padding:0 10px;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:11px;
-  background:#eaf3fb;color:#164478;font-weight:900;
-}
-.reports-assignees-list{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:10px;padding:14px;
-}
-@media(max-width:980px){
-  .task-assignee-popover{
-    right:12px!important;
-    left:12px!important;
-    width:auto!important;
-    top:70px!important;
-  }
-}
-</style>
-
-<style>
-#reportsAssigneesPanel .task-assignee-card{
-  min-height:72px;
-  background:#fff;
-}
-#reportsAssigneesPanel .task-assignee-card strong{
-  font-size:16px!important;
-  font-weight:900!important;
-  color:#0b2f52!important;
-}
-#reportsAssigneesPanel .task-assignee-card small{
-  font-size:12px!important;
-  margin-top:5px!important;
-}
-#reportsAssigneesPanel .task-assignee-empty{
-  grid-column:1/-1;
-  padding:18px;
-  text-align:center;
-  color:#75869a;
-  font-weight:800;
-}
-</style>
-
 </head>
 
 <body>
@@ -1899,28 +1376,6 @@ body{padding:0!important}
     <!-- ===== CONTENT ===== -->
     <div class="content-wrap">
       <div id="content"></div>
-
-      <section id="reportsAssigneesPanel" style="display:none">
-        <div class="reports-assignees-head">
-          <div>
-            <h3><i class="fa-solid fa-user-check"></i> المسند إليهم المهام</h3>
-            <p>أسماء الموظفين المسند إليهم المهام حالياً</p>
-          </div>
-          <span id="reportsAssigneesCount" class="reports-assignees-count">0</span>
-        </div>
-        <div id="reportsAssigneesList" class="reports-assignees-list"></div>
-      </section>
-
-      <section id="taskAssigneesPanel" class="task-assignees-panel" style="display:none">
-        <div class="task-assignees-panel-head">
-          <div>
-            <h3><i class="fa-solid fa-users"></i> المسند إليهم حالياً</h3>
-            <p>أسماء الموظفين الذين لديهم مهام مسندة أو قيد التنفيذ</p>
-          </div>
-          <span id="taskAssigneesPanelCount" class="task-assignees-panel-count">0</span>
-        </div>
-        <div id="taskAssigneesPanelList" class="task-assignees-panel-list"></div>
-      </section>
     </div>
 
   </main>
@@ -2346,8 +1801,6 @@ function toggleDashboardLanguage(){
    High = أحمر | Medium = برتقالي | Low = أخضر
 ========================================================= */
 let TASKS_SNAPSHOT = [];
-let TASK_USERS_LOOKUP = new Map();
-
 let TASKS_LISTENER_READY = false;
 let TASK_FLASH_TIMER = null;
 
@@ -2415,94 +1868,14 @@ function renderTaskAssignmentAlert(){
   const tickerNote = document.getElementById("taskTickerNote");
   const tickerNames = document.getElementById("taskTickerNames");
 
-  function taskStatus(t){
-    return String(t?.status || "assigned").trim().toLowerCase();
-  }
+  const activeTasks = TASKS_SNAPSHOT.filter(t =>
+    t.status === "assigned" || t.status === "in_progress"
+  );
 
-  function isActiveTask(t){
-    const st = taskStatus(t);
-    return ![
-      "completed","cancelled","canceled","closed","done",
-      "مكتمل","مكتملة","تم الانتهاء","تم الإنهاء",
-      "ملغاة","ملغي","مغلق","مغلقة"
-    ].includes(st);
-  }
+  const waitingTasks = TASKS_SNAPSHOT.filter(t =>
+    t.status === "assigned"
+  );
 
-  function isWaitingTask(t){
-    return ["assigned","تم الإسناد","مسند","مسندة"].includes(taskStatus(t));
-  }
-
-  /*
-    كود إسناد المهام يحفظ:
-    employeeName     = اسم الموظف
-    employeeUsername = اسم المستخدم
-    لذلك لا نعتمد على تسجيل دخول المدير لمعرفة المسند إليه.
-  */
-  function getTaskAssignee(t){
-    const employeeName = safeTaskText(t?.employeeName);
-    const employeeUsername = safeTaskText(t?.employeeUsername);
-
-    let username =
-      employeeUsername ||
-      safeTaskText(t?.assignedEmployeeUsername) ||
-      safeTaskText(t?.assigneeUsername) ||
-      safeTaskText(t?.assignedToUsername) ||
-      safeTaskText(t?.receiverUsername) ||
-      safeTaskText(t?.recipientUsername) ||
-      safeTaskText(t?.toUsername) ||
-      safeTaskText(t?.username) ||
-      safeTaskText(t?.userName);
-
-    let name =
-      employeeName ||
-      safeTaskText(t?.assignedEmployeeName) ||
-      safeTaskText(t?.assigneeName) ||
-      safeTaskText(t?.assignedToName) ||
-      safeTaskText(t?.receiverName) ||
-      safeTaskText(t?.recipientName);
-
-    // إذا كان لدينا username نستخدم USERS للحصول على الاسم الكامل.
-    if(username){
-      const resolved = TASK_USERS_LOOKUP.get(username.toLowerCase());
-      if(resolved) name = name || resolved;
-    }
-
-    // دعم السجلات القديمة التي تحفظ قيمة نصية فقط.
-    if(!name){
-      const oldValue =
-        safeTaskText(t?.employee) ||
-        safeTaskText(t?.assignedTo) ||
-        safeTaskText(t?.assignee) ||
-        safeTaskText(t?.receiver) ||
-        safeTaskText(t?.recipient) ||
-        safeTaskText(t?.toUser);
-
-      if(oldValue && oldValue !== "[object Object]"){
-        const resolved = TASK_USERS_LOOKUP.get(oldValue.toLowerCase());
-        name = resolved || oldValue;
-        if(!username && !resolved) username = oldValue;
-      }
-    }
-
-    const userId = safeTaskText(
-      t?.employeeUserId ||
-      t?.userId ||
-      t?.assignedUserId ||
-      t?.receiverUserId
-    );
-
-    if(!name && userId){
-      name = TASK_USERS_LOOKUP.get(userId.toLowerCase()) || "";
-    }
-
-    // لا نخفي السجل أبداً حتى لو كان قديماً جداً.
-    if(!name) name = username || "غير محدد";
-
-    return { name, username };
-  }
-
-  const activeTasks = TASKS_SNAPSHOT.filter(isActiveTask);
-  const waitingTasks = activeTasks.filter(isWaitingTask);
   const alertCount = waitingTasks.length;
 
   if(sideBadge) sideBadge.textContent = alertCount;
@@ -2513,41 +1886,27 @@ function renderTaskAssignmentAlert(){
     btn.classList.toggle("has-task-count",alertCount > 0);
   });
 
+  /* التجميع الآن حسب اسم الموظف فقط — بدون رقم موظف */
   const byEmployee = new Map();
 
   activeTasks.forEach(t=>{
-    const assignee = getTaskAssignee(t);
-    const key = String(
-      assignee.username || assignee.name || t.id || Math.random()
-    ).trim().toLowerCase();
-
+    const name = safeTaskText(t.employeeName) || "غير محدد";
+    const key = name.toLowerCase();
     const priority = normalizeTaskPriority(t.priority);
 
     const current = byEmployee.get(key) || {
-      name: assignee.name,
-      username: assignee.username,
+      name,
       count:0,
       assigned:0,
       progress:0,
       priorities:[]
     };
 
-    // لو ظهر الاسم لاحقاً من سجل أحدث، نحتفظ به.
-    if(
-      (!current.name || current.name === "غير محدد") &&
-      assignee.name
-    ){
-      current.name = assignee.name;
-    }
-    if(!current.username && assignee.username){
-      current.username = assignee.username;
-    }
-
     current.count++;
     current.priorities.push(priority);
 
-    if(isWaitingTask(t)) current.assigned++;
-    else current.progress++;
+    if(t.status === "assigned") current.assigned++;
+    if(t.status === "in_progress") current.progress++;
 
     byEmployee.set(key,current);
   });
@@ -2555,60 +1914,13 @@ function renderTaskAssignmentAlert(){
   const employees = [...byEmployee.values()]
     .map(e=>({
       ...e,
-      priority:highestTaskPriority(
-        e.priorities.map(priority=>({priority}))
-      )
+      priority:highestTaskPriority(e.priorities.map(priority=>({priority})))
     }))
     .sort((a,b)=>
       taskPriorityValue(b.priority)-taskPriorityValue(a.priority) ||
       b.count-a.count ||
-      String(a.name).localeCompare(String(b.name),"ar")
+      a.name.localeCompare(b.name,"ar")
     );
-
-  function employeeIdentityHtml(e){
-    const name = escapeTaskHtml(e.name || "غير محدد");
-    const username = safeTaskText(e.username);
-    return `
-      <strong>${name}</strong>
-      ${username ? `<div style="font-size:11px;color:#64748b;margin-top:3px;direction:ltr;text-align:right">@${escapeTaskHtml(username)}</div>` : ""}
-    `;
-  }
-
-  function cardsHtml(){
-    if(!employees.length){
-      return '<div class="task-assignee-empty">لا توجد مهام مسندة حالياً</div>';
-    }
-
-    return employees.map(e=>{
-      const initial =
-        escapeTaskHtml((e.name || e.username || "?").trim().charAt(0) || "?");
-
-      return `
-        <div class="task-assignee-card priority-${e.priority}">
-          <div class="task-assignee-avatar">${initial}</div>
-          <div>
-            ${employeeIdentityHtml(e)}
-            <small>
-              ${e.count} مهمة • ${priorityArabic(e.priority)}
-              ${e.assigned ? ` • ${e.assigned} بانتظار الاستلام` : ""}
-              ${e.progress ? ` • ${e.progress} قيد الإجراء` : ""}
-            </small>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
-
-  const panelList = document.getElementById("taskAssigneesPanelList");
-  const panelCount = document.getElementById("taskAssigneesPanelCount");
-  const reportsList = document.getElementById("reportsAssigneesList");
-  const reportsCount = document.getElementById("reportsAssigneesCount");
-
-  if(panelCount) panelCount.textContent = employees.length;
-  if(reportsCount) reportsCount.textContent = employees.length;
-
-  if(panelList) panelList.innerHTML = cardsHtml();
-  if(reportsList) reportsList.innerHTML = cardsHtml();
 
   if(listBox){
     if(!employees.length){
@@ -2618,7 +1930,7 @@ function renderTaskAssignmentAlert(){
       listBox.className = "";
       listBox.innerHTML = employees.map(e=>`
         <div class="task-assignee-item priority-${e.priority}">
-          ${employeeIdentityHtml(e)}
+          ${e.name}
           <small>
             أولوية ${priorityArabic(e.priority)}
             • ${e.count} مهمة
@@ -2635,81 +1947,20 @@ function renderTaskAssignmentAlert(){
       const topPriority = highestTaskPriority(activeTasks);
 
       tickerNote.style.display = "block";
-      tickerNote.classList.remove(
-        "priority-high",
-        "priority-medium",
-        "priority-low"
-      );
+      tickerNote.classList.remove("priority-high","priority-medium","priority-low");
       tickerNote.classList.add("priority-"+topPriority);
 
       tickerNames.textContent =
         "🔔 مهام مسندة إلى: " +
-        employees.map(e=>{
-          const who = e.username
-            ? `${e.name} (@${e.username})`
-            : e.name;
-          return `${who} — ${priorityArabic(e.priority)} (${e.count})`;
-        }).join("  •  ") +
+        employees.map(e=>`${e.name} — ${priorityArabic(e.priority)} (${e.count})`).join("  •  ") +
         "   —   ";
     }else{
       tickerNote.style.display = "none";
-      tickerNote.classList.remove(
-        "priority-high",
-        "priority-medium",
-        "priority-low"
-      );
+      tickerNote.classList.remove("priority-high","priority-medium","priority-low");
       tickerNames.textContent = "";
     }
   }
 }
-// تحميل أسماء المستخدمين لدعم سجلات المهام القديمة والجديدة
-// حتى لو كان سجل المهمة يحتوي فقط على username أو userId.
-db.collection("USERS").onSnapshot(snapshot=>{
-  const map = new Map();
-  snapshot.forEach(doc=>{
-    const u = doc.data() || {};
-    const displayName = safeTaskText(
-      u.displayName || u.fullName || u.name || u.employeeName ||
-      u.username || u.userName || doc.id
-    );
-    const keys = [
-      doc.id, u.id, u.uid, u.username, u.userName,
-      u.usernameLower, u.email, u.employeeName, u.displayName, u.fullName, u.name
-    ];
-    keys.forEach(key=>{
-      const k = safeTaskText(key).toLowerCase();
-      if(k && displayName) map.set(k,displayName);
-    });
-  });
-  TASK_USERS_LOOKUP = map;
-  renderTaskAssignmentAlert();
-},error=>{
-  console.warn("USERS task-name lookup error:",error);
-});
-
-/* تثبيت نافذة أسماء المسند إليهم بجانب زر إسناد المهام */
-(function setupTaskPopoverPosition(){
-  const wrap = document.querySelector(".task-nav-wrap");
-  const pop = document.getElementById("taskAssigneePopover");
-  const btn = document.getElementById("tasksBtnSide");
-  if(!wrap || !pop || !btn) return;
-
-  function positionPopover(){
-    if(window.innerWidth <= 980) return;
-    const rect = btn.getBoundingClientRect();
-    const popHeight = Math.min(pop.scrollHeight || 340, 420);
-    let top = rect.top;
-    if(top + popHeight > window.innerHeight - 12){
-      top = Math.max(12, window.innerHeight - popHeight - 12);
-    }
-    pop.style.top = top + "px";
-    pop.style.right = (window.innerWidth - rect.left + 10) + "px";
-  }
-
-  wrap.addEventListener("mouseenter", positionPopover);
-  window.addEventListener("resize", positionPopover);
-  window.addEventListener("scroll", positionPopover, true);
-})();
 
 db.collection("EmployeeTasks")
   .onSnapshot(snapshot=>{
@@ -2717,12 +1968,10 @@ db.collection("EmployeeTasks")
     /* أول تحميل لا يسبب وميض للمهام القديمة */
     if(TASKS_LISTENER_READY){
       const justAssigned = snapshot.docChanges()
-        .filter(change => {
-          if(change.type !== "added") return false;
-          const data = change.doc.data() || {};
-          const status = String(data.status || "assigned").trim().toLowerCase();
-          return ["assigned","تم الإسناد","مسند","مسندة"].includes(status);
-        })
+        .filter(change =>
+          change.type === "added" &&
+          ((change.doc.data() && change.doc.data().status) || "assigned") === "assigned"
+        )
         .map(change=>({
           id:change.doc.id,
           ...(change.doc.data() || {})
@@ -2900,6 +2149,7 @@ online: {
           ["الحضور","fa-user-check","https://www.prudle-education.com/attendance-report","blue","تقارير حضور الطلاب والمدربين"],
           ["الدرجات","fa-file-lines","https://www.prudle-education.com/grades-report","green","عرض ومتابعة نتائج الدرجات"],
           ["الواجبات","fa-book","https://www.prudle-education.com/homework-reports","gold","متابعة الواجبات والتسليمات"],
+          ["واتس","fa-whatsapp","https://www.prudle-education.com/weak-students","online","متابعة الطلاب عبر الواتساب"],
           ["الخطة","fa-calendar","https://www.prudle-education.com/courses-plan-t","purple","عرض الخطة الدراسية"],
           ["الأعداد","fa-chart-bar","https://www.prudle-education.com/students-numbers","orange","إحصائيات وأعداد الطلاب"],
           ["الاستعلام الاكاديمي العام","fa-chart-bar","https://www.prudle-education.com/dashboard-students","orange","الشهادات والدرجات"],
@@ -3048,6 +2298,7 @@ placement: {
           ["الدرجات","fa-star","https://www.prudle-education.com/grades-reports","purple","إدارة درجات الطلاب"],
           ["الكويزات","fa-paperclip","https://www.prudle-education.com/create-a-quiz","orange","إدارة الواجبات والاختبارات"],
           ["الرواتب","fa-clock","https://www.prudle-education.com/edit-timesheet","green","الرواتب والحسابات"],
+          ["المستخدمين","fa-users","https://www.prudle-education.com/users","online","إدارة المستخدمين والصلاحيات"]
         ]
       }
     ]
@@ -3281,15 +2532,6 @@ function openPage(url){
    تحميل القسم
 ========================================================= */
 function load(type){
-  const assigneesPanel = document.getElementById("taskAssigneesPanel");
-  if(assigneesPanel){
-    assigneesPanel.style.display = type === "tasks" ? "block" : "none";
-  }
-  const reportsAssigneesPanel = document.getElementById("reportsAssigneesPanel");
-  if(reportsAssigneesPanel){
-    reportsAssigneesPanel.style.display = type === "reports" ? "block" : "none";
-  }
-
   window.CURRENT_SECTION = type;
   activateButtons(type);
 
@@ -3323,12 +2565,6 @@ if(type === "online" && LIVE_MEET_LINK){
   });
 
   document.getElementById("content").innerHTML = html;
-
-  /* تحديث أسماء المسند إليهم فور فتح قسم التقارير/المهام */
-  if(type === "reports" || type === "tasks"){
-    renderTaskAssignmentAlert();
-    setTimeout(renderTaskAssignmentAlert, 50);
-  }
 }
 
 /* =========================================================
