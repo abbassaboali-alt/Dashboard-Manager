@@ -2670,5 +2670,49 @@ load("reports");
 loadOpenCoursesTicker();
 </script>
 
+
+
+<style id="prudle-premium-ui-2026">
+/* ===== PRUDLE 2026 — Professional UI refresh (visual only) ===== */
+:root{
+  --p-navy:#123d6b;--p-blue:#1e5d96;--p-sky:#eaf3fb;--p-bg:#f3f7fb;
+  --p-text:#16324d;--p-muted:#6b7f95;--p-line:#dbe6f2;--p-white:#fff;
+  --p-shadow:0 12px 34px rgba(19,61,107,.09);--p-radius:20px;
+}
+html,body{background:var(--p-bg)!important;color:var(--p-text)!important}
+body{padding:0!important}
+.app{background:var(--p-bg);gap:0}
+.sidebar{width:282px!important;position:sticky!important;top:0;height:100vh;overflow-y:auto;overflow-x:visible!important;padding:18px 14px!important;background:linear-gradient(180deg,#103b68 0%,#164b7e 55%,#123d6b 100%)!important;box-shadow:12px 0 36px rgba(18,61,107,.12)!important}
+.brand{margin:0 5px 18px!important;padding:14px 10px 20px!important;text-align:right!important}
+.brand h1{font-size:28px!important;letter-spacing:.2px}.brand p{font-size:12px!important;opacity:.72!important}
+.menu-title{font-size:11px!important;letter-spacing:.3px;margin:10px 10px 8px!important;opacity:.68!important}
+.side-btn{min-height:50px!important;padding:12px 13px!important;margin-bottom:7px!important;border-radius:14px!important;font-size:14px!important;box-shadow:none!important;background:rgba(255,255,255,.075)!important;border:1px solid rgba(255,255,255,.08)!important}
+.side-btn:hover{transform:translateX(-2px)!important;background:rgba(255,255,255,.14)!important}
+.side-btn.active{background:#fff!important;color:var(--p-navy)!important;border-color:#fff!important;box-shadow:0 9px 24px rgba(0,0,0,.14)!important}
+.sidebar-bottom{margin-top:14px!important;padding-top:14px!important}
+.main{min-height:100vh;background:var(--p-bg)}
+.topbar{margin:0!important;padding:14px 24px!important;min-height:70px;background:rgba(255,255,255,.94)!important;border-bottom:1px solid var(--p-line)!important;box-shadow:0 4px 18px rgba(18,61,107,.04)!important}
+.topbar-left h2{font-size:21px!important}.topbar-actions button{border-radius:12px!important;box-shadow:none!important}
+.hero{margin:18px 22px 16px!important;padding:22px 24px!important;border-radius:22px!important;background:linear-gradient(120deg,#123d6b,#1c5b93 72%,#2876b4)!important;box-shadow:0 14px 32px rgba(18,61,107,.16)!important}
+.hero h3{font-size:25px!important;margin-bottom:5px!important}.hero p{font-size:14px!important;opacity:.8!important}
+.ticker{margin-top:14px!important;border-radius:12px!important;background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.12)}
+.ticker-track{padding:10px 0!important;font-size:15px!important;text-shadow:none!important}
+.content-wrap{padding:2px 22px 30px!important}.section-title{font-size:18px!important;margin:16px 2px 12px!important;display:flex;align-items:center;gap:8px}.section-title:before{content:"";width:5px;height:22px;border-radius:9px;background:#1e5d96;display:inline-block}
+.cards{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))!important;gap:14px!important}
+.card{min-height:190px!important;padding:20px 16px!important;border-radius:18px!important;border:1px solid var(--p-line)!important;border-top:4px solid #4e8cff!important;box-shadow:var(--p-shadow)!important;text-align:right!important;justify-content:flex-start!important;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px)!important;box-shadow:0 18px 38px rgba(18,61,107,.13)!important}.card .icon-box{width:52px!important;height:52px!important;margin:0 0 14px auto!important;border-radius:14px!important;font-size:21px!important}.card h3{font-size:17px!important;margin-bottom:6px!important}.card .desc{font-size:12.5px!important;line-height:1.65!important;min-height:42px!important;margin-bottom:16px!important}.card button{margin-top:auto!important;width:100%;padding:11px 14px!important;border-radius:11px!important;font-size:13px!important;box-shadow:none!important}
+.card.green{border-top-color:#22c55e!important}.card.red{border-top-color:#ef4444!important}.card.gold{border-top-color:#eab308!important}.card.purple{border-top-color:#8b5cf6!important}.card.orange{border-top-color:#f97316!important}.card.online{border-top-color:#06b6d4!important}.card.weak-followup{border-top-color:#e11d48!important}
+/* Task notification — same logic, cleaner presentation */
+.task-alert-btn{overflow:visible!important}.task-count-badge{min-width:22px!important;height:22px!important;font-size:10px!important;border:2px solid rgba(255,255,255,.9)!important;box-shadow:0 4px 10px rgba(0,0,0,.16)!important}
+.task-assignee-popover{position:fixed!important;right:294px!important;top:190px!important;width:340px!important;max-height:430px!important;margin:0!important;padding:14px!important;border:1px solid var(--p-line)!important;border-radius:18px!important;box-shadow:0 22px 55px rgba(15,45,75,.22)!important;z-index:999999!important;background:#fff!important}
+.task-assignee-popover:before{content:"";position:absolute;right:-8px;top:24px;width:16px;height:16px;background:#fff;transform:rotate(45deg);border-top:1px solid var(--p-line);border-right:1px solid var(--p-line)}
+.task-assignee-popover h4{font-size:14px!important;padding-bottom:10px;margin-bottom:10px!important;border-bottom:1px solid #edf2f7}
+.task-assignee-item{padding:11px 12px!important;margin-bottom:8px!important;border-radius:12px!important;border-right-width:4px!important}.task-assignee-item small{margin-top:3px;font-size:10.5px!important}
+.task-ticker-note{margin-top:12px!important;padding:9px 12px!important;border-radius:11px!important;font-size:12px!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+@media(max-width:980px){
+ .sidebar{display:none!important}.topbar{padding:12px!important}.hero{margin:10px 8px 12px!important;padding:18px 14px!important}.content-wrap{padding:0 8px 22px!important}.mobile-menu{background:#fff;padding:10px 8px 6px!important;border-bottom:1px solid var(--p-line)}.mobile-menu button{border-radius:11px!important;box-shadow:none!important;border:1px solid rgba(255,255,255,.35)!important}.task-assignee-popover{display:none!important}.cards{gap:9px!important}.card{min-height:205px!important;padding:14px 10px!important;border-radius:15px!important}.card .icon-box{width:46px!important;height:46px!important;font-size:19px!important}.card h3{font-size:14px!important}.card .desc{font-size:11px!important}.card button{font-size:11.5px!important}
+}
+@media(max-width:600px){.hero h3{font-size:19px!important}.cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}.topbar-left h2{font-size:18px!important}}
+</style>
 </body>
 </html>
