@@ -2346,6 +2346,8 @@ function toggleDashboardLanguage(){
    High = أحمر | Medium = برتقالي | Low = أخضر
 ========================================================= */
 let TASKS_SNAPSHOT = [];
+let TASK_USERS_LOOKUP = new Map();
+
 let TASKS_LISTENER_READY = false;
 let TASK_FLASH_TIMER = null;
 
@@ -2419,11 +2421,11 @@ function renderTaskAssignmentAlert(){
 
   function isActiveTask(t){
     const st = taskStatus(t);
-    return !["completed","cancelled","canceled","closed","done"].includes(st);
+    return !["completed","cancelled","canceled","closed","done","مكتمل","مكتملة","تم الانتهاء","تم الإنهاء","ملغاة","ملغي","مغلق","مغلقة"].includes(st);
   }
 
   function isWaitingTask(t){
-    return taskStatus(t) === "assigned";
+    return ["assigned","تم الإسناد","مسند","مسندة"].includes(taskStatus(t));
   }
 
   /*
@@ -2434,47 +2436,65 @@ function renderTaskAssignmentAlert(){
     لذلك نعتمد عليهما أولاً، مع دعم الحقول القديمة.
   */
   function getTaskAssigneeName(t){
+    // الحقول الحالية في كود إسناد المهام: employeeName / employeeUsername / employeeUserId
+    // مع دعم جميع الحقول القديمة المستخدمة في الإصدارات السابقة.
     const candidates = [
       t?.employeeName,
       t?.employeeUsername,
+      t?.assignedEmployeeName,
+      t?.assignedEmployeeUsername,
       t?.assigneeName,
+      t?.assigneeUsername,
       t?.assignedToName,
+      t?.assignedToUsername,
       t?.receiverName,
       t?.receiverUsername,
+      t?.recipientName,
+      t?.recipientUsername,
       t?.employee,
       t?.assignedTo,
-      t?.assignedToUsername,
       t?.assignee,
-      t?.username,
-      t?.userName,
+      t?.receiver,
+      t?.recipient,
       t?.toUser,
-      t?.recipientName
+      t?.toUsername,
+      t?.username,
+      t?.userName
     ];
 
-    for(const value of candidates){
-      if(value === null || value === undefined) continue;
-
-      if(typeof value === "object" && !Array.isArray(value)){
-        const nested =
-          value.name ||
-          value.displayName ||
-          value.employeeName ||
-          value.username ||
-          value.userName ||
-          "";
-        const cleaned = safeTaskText(nested);
-        if(cleaned) return cleaned;
-        continue;
-      }
-
+    function readAssigneeValue(value){
+      if(value === null || value === undefined) return "";
       if(Array.isArray(value)){
-        const first = value.find(v => safeTaskText(v));
-        if(first) return safeTaskText(first);
-        continue;
+        for(const item of value){
+          const found = readAssigneeValue(item);
+          if(found) return found;
+        }
+        return "";
       }
-
+      if(typeof value === "object"){
+        return readAssigneeValue(
+          value.name || value.displayName || value.fullName ||
+          value.employeeName || value.employeeUsername ||
+          value.username || value.userName || value.email || ""
+        );
+      }
       const cleaned = safeTaskText(value);
-      if(cleaned) return cleaned;
+      return cleaned && cleaned !== "[object Object]" ? cleaned : "";
+    }
+
+    for(const value of candidates){
+      const found = readAssigneeValue(value);
+      if(found){
+        const lookup = TASK_USERS_LOOKUP.get(found.toLowerCase());
+        return lookup || found;
+      }
+    }
+
+    // في السجلات القديمة قد يكون المحفوظ فقط هو معرف المستخدم.
+    const userId = safeTaskText(t?.employeeUserId || t?.userId || t?.assignedUserId || t?.receiverUserId);
+    if(userId){
+      const lookup = TASK_USERS_LOOKUP.get(userId.toLowerCase());
+      if(lookup) return lookup;
     }
 
     return "غير محدد";
@@ -2624,6 +2644,31 @@ function renderTaskAssignmentAlert(){
     }
   }
 }
+// تحميل أسماء المستخدمين لدعم سجلات المهام القديمة والجديدة
+// حتى لو كان سجل المهمة يحتوي فقط على username أو userId.
+db.collection("USERS").onSnapshot(snapshot=>{
+  const map = new Map();
+  snapshot.forEach(doc=>{
+    const u = doc.data() || {};
+    const displayName = safeTaskText(
+      u.displayName || u.fullName || u.name || u.employeeName ||
+      u.username || u.userName || doc.id
+    );
+    const keys = [
+      doc.id, u.id, u.uid, u.username, u.userName,
+      u.usernameLower, u.email, u.employeeName, u.displayName, u.fullName, u.name
+    ];
+    keys.forEach(key=>{
+      const k = safeTaskText(key).toLowerCase();
+      if(k && displayName) map.set(k,displayName);
+    });
+  });
+  TASK_USERS_LOOKUP = map;
+  renderTaskAssignmentAlert();
+},error=>{
+  console.warn("USERS task-name lookup error:",error);
+});
+
 db.collection("EmployeeTasks")
   .onSnapshot(snapshot=>{
 
