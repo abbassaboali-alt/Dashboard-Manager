@@ -525,6 +525,23 @@ html,body{
 .purple{ border-color:#9b59b6; }
 .orange{ border-color:#f39c12; }
 .online{ border-color:#1abc9c; }
+.weak-followup{
+  border-color:#e11d48;
+  background:linear-gradient(180deg,#ffffff,#fff1f4);
+  box-shadow:0 14px 30px rgba(225,29,72,.13);
+}
+.weak-followup .icon-box{
+  background:linear-gradient(135deg,#ffe4e9,#fecdd6);
+  color:#be123c;
+}
+.weak-followup h3{color:#be123c;}
+.weak-followup button{
+  background:linear-gradient(135deg,#be123c,#e11d48);
+}
+.weak-followup:hover{
+  box-shadow:0 20px 38px rgba(225,29,72,.22);
+}
+
 
 /* ===== MOBILE TOP BUTTONS ===== */
 .mobile-menu{
@@ -1622,6 +1639,7 @@ const EN_ITEM_TEXT = {
   "تقارير تقييم الطلاب لمهارات اللغة":"Language Skills Reports",
   "تقارير أداء المدربين":"Trainer Performance Reports",
   "تقارير تعليقات المدرب ":"Trainer Comments",
+  "متابعة الطلاب الضعاف":"Weak Students Follow-up",
   "الرواتب":"Salaries",
   "المتأخرات":"Overdue Payments",
 
@@ -2139,6 +2157,7 @@ online: {
           ["تقارير تقييم الطلاب لمهارات اللغة","fa-chart-bar"," https://www.prudle-education.com/skills-evaluation","orange","تقييم مهارات اللغة"],
           ["تقارير أداء المدربين","fa-chart-bar","https://www.prudle-education.com/activities-results","orange","تقييم أداء المدربين"],
          ["تقارير تعليقات المدرب ","fa-chart-bar","https://www.prudle-education.com/comments-reports","orange","التعليقات والملاحظات"],
+          ["متابعة الطلاب الضعاف","fa-user-shield","https://www.prudle-education.com/week-students-report","weak-followup","متابعة حالات الطلاب الضعاف وملاحظات المدربين وإجراءات المتابعة"],
 
 
           ["الرواتب","fa-money-bill","https://www.prudle-education.com/edit-salary","green","متابعة الرواتب والساعات"],
