@@ -1132,6 +1132,9 @@ html,body{
 }
 
 </style>
+<script>
+window.PRUDLE_AUTH_DISABLED = true;
+</script>
 </head>
 
 <body>
@@ -1767,27 +1770,13 @@ function applyDashboardLanguage(){
 }
 
 function logout(){
-
   try{
-
-    window.parent.postMessage(
-      "PRUDLE_LOGOUT",
-      "https://www.prudle-education.com"
-    );
-
-  }catch(error){
-
-    console.error(
-      "Logout message error:",
-      error
-    );
-
-    window.location.replace(
-      "https://www.prudle-education.com/log-in-out"
-    );
-
-  }
-
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    localStorage.removeItem("loginDate");
+    window.parent.postMessage("PRUDLE_LOGOUT","https://www.prudle-education.com");
+  }catch(e){}
+  window.location.href="https://www.prudle-education.com/log-in-out";
 }
 
 function toggleDashboardLanguage(){
