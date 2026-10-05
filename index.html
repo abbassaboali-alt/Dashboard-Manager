@@ -1132,9 +1132,13 @@ html,body{
 }
 
 </style>
+
 <script>
-window.PRUDLE_AUTH_DISABLED = true;
+/* Authentication is intentionally handled by the parent Webflow dashboard page.
+   This embedded dashboard must not show a second login screen. */
+window.PRUDLE_EMBEDDED_DASHBOARD = true;
 </script>
+
 </head>
 
 <body>
@@ -2515,42 +2519,6 @@ async function backupFirestoreFromDashboard(){
    فتح رابط
 ========================================================= */
 function openPage(url){ openWorkspace(url); }
-/* =========================================================
-   تحميل القسم
-========================================================= */
-
-function openWorkspace(url){
-  const hero = document.querySelector(".hero");
-  if(hero) hero.style.display = "none";
-
-  document.getElementById("pageTitle").textContent =
-    DASH_LANG === "en" ? "Workspace" : "مساحة العمل";
-
-  const content = document.getElementById("content");
-  content.innerHTML = `
-    <section class="workspace-shell">
-      <div class="workspace-bar">
-        <div class="workspace-bar-title">
-          <span class="workspace-dot"></span>
-          <strong>${DASH_LANG === "en" ? "Prudle Workspace" : "مساحة عمل برودل"}</strong>
-        </div>
-        <div class="workspace-actions">
-          <button onclick="document.getElementById('prudleWorkspaceFrame').contentWindow.location.reload()">
-            <i class="fa-solid fa-rotate-right"></i>
-            ${DASH_LANG === "en" ? "Refresh" : "تحديث"}
-          </button>
-          <button class="workspace-home" onclick="closeWorkspace()">
-            <i class="fa-solid fa-grid-2"></i>
-            ${DASH_LANG === "en" ? "Dashboard" : "لوحة التحكم"}
-          </button>
-        </div>
-      </div>
-      <div class="workspace-frame-wrap">
-        <iframe id="prudleWorkspaceFrame" src="${url}" title="Prudle Workspace"></iframe>
-      </div>
-    </section>`;
-  window.scrollTo({top:0,behavior:"smooth"});
-}
 function closeWorkspace(){
   const hero = document.querySelector(".hero");
   if(hero) hero.style.display = "";
